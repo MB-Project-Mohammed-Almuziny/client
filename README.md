@@ -18,3 +18,15 @@
 - **Block user** As an admin I can give a user a block from the website
 - **Block comment** As an admin I can block a comment
 - **Block course** As an admin I can block a cource
+
+## Diagrams
+
+### UML Diagrams
+
+ <img src="./client-UML.drawio.png" alt="UML Diagram" />
+
+## wireframes
+
+### home page
+
+ <img src=".\wireframes\home.drawio.png" alt="home page" />
