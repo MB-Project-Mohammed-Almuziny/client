@@ -19,20 +19,25 @@
 - **Block comment** As an admin I can block a comment
 - **Block course** As an admin I can block a cource
 
+## used library
+
+- nextjs
+-
+
 ## React Router Routes (React App)
 
-| Path                              | Component    | Permissions             | Behavior                                                             |
-| --------------------------------- | ------------ | ----------------------- | -------------------------------------------------------------------- |
-| `/`                               | n/a          | public `<Route>`        | Home page                                                            |
-| `/register`                       | Register     | anon only `<AnonRoute>` | Register form, link to login, navigate to log in page after register |
-| `/login`                          | Login        | anon only `<AnonRoute>` | Login form, link to register, navigate to homepage after login       |
-| `/search/:term`                   |              | public `<Route>`        |                                                                      |
-| `/setting`                        | Setting      | user only `<Route>`     | Setting form,                                                        |
-| `/userIndo`                       | UserInfo     | user only `<Route>`     | show other user info                                                 |
-| `/create/course`                  | CreateCourse | user only `<Route>`     | create new course                                                    |
-| `/course/:courseTittle`           | Course       | public `<Route>`        | show course                                                          |
-| `/courses/:category`              | CoursesPage  | public `<Route>`        | show courses by category                                             |
-| `/courses/:category/:subCategory` | CoursesPage  | public `<Route>`        | show courses subcategory                                             |
+| Path                              | Component    | Permissions    | Behavior                                                             |
+| --------------------------------- | ------------ | -------------- | -------------------------------------------------------------------- |
+| `/`                               | n/a          | public         | Home page                                                            |
+| `/register`                       | Register     | public         | Register form, link to login, navigate to log in page after register |
+| `/login`                          | Login        | public         | Login form, link to register, navigate to homepage after login       |
+| `/search/:term`                   |              | public         |                                                                      |
+| `/setting`                        | Setting      | user nad admin | Setting form,                                                        |
+| `/userIndo`                       | UserInfo     | user and admin | show other user info                                                 |
+| `/create/course`                  | CreateCourse | user and admin | create new course                                                    |
+| `/course/:courseTittle`           | Course       | public         | show course                                                          |
+| `/courses/:category`              | CoursesPage  | public         | show courses by category                                             |
+| `/courses/:category/:subCategory` | CoursesPage  | public         | show courses subcategory                                             |
 
 ## Components
 
@@ -45,7 +50,11 @@
 - CreateCourse
 - UserInfo
 - Course
-- coursesPage
+- CoursesPage
+- Comments
+- Reviews
+- Questions
+- chate
 
 ## Diagrams
 
@@ -88,3 +97,9 @@
 ### Trello
 
 [Link to trello board](https://trello.com/mbprojectmohammedalmuziny)
+
+### Slides
+
+The url to your presentation slides
+
+[Slides Link](http://slides.com/)
