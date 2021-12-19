@@ -19,6 +19,19 @@
 - **Block comment** As an admin I can block a comment
 - **Block course** As an admin I can block a cource
 
+## React Router Routes (React App)
+
+| Path        | Component | Permissions             | Behavior                                                             |
+| ----------- | --------- | ----------------------- | -------------------------------------------------------------------- |
+| `/`         | n/a       | public `<Route>`        | Home page                                                            |
+| `/register` | Register  | anon only `<AnonRoute>` | Register form, link to login, navigate to log in page after register |
+| `/login`    | Login     | anon only `<AnonRoute>` | Login form, link to register, navigate to homepage after login       |
+
+## Components
+
+- Header
+- Home
+
 ## Diagrams
 
 ### UML Diagrams
@@ -30,6 +43,30 @@
 ### home page
 
  <img src=".\wireframes\home.drawio.png" alt="home page" />
+
+### register page
+
+ <img src=".\wireframes\register.drawio.png" alt="register page" />
+
+### login page
+
+ <img src=".\wireframes\login.drawio.png" alt="login page" />
+
+### setting info page
+
+ <img src=".\wireframes\setting-info.drawio.png" alt="setting info page" />
+
+### setting avatar page
+
+ <img src=".\wireframes\setting-avatar.drawio.png" alt="setting avatar page" />
+
+### setting password page
+
+ <img src=".\wireframes\setting-password.drawio.png" alt="setting-password page" />
+
+### setting close account page
+
+ <img src=".\wireframes\setting-closeAccount.drawio.png" alt="setting-closeAccount page" />
 
 ## Links
 
