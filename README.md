@@ -21,11 +21,18 @@
 
 ## React Router Routes (React App)
 
-| Path        | Component | Permissions             | Behavior                                                             |
-| ----------- | --------- | ----------------------- | -------------------------------------------------------------------- |
-| `/`         | n/a       | public `<Route>`        | Home page                                                            |
-| `/register` | Register  | anon only `<AnonRoute>` | Register form, link to login, navigate to log in page after register |
-| `/login`    | Login     | anon only `<AnonRoute>` | Login form, link to register, navigate to homepage after login       |
+| Path                              | Component    | Permissions             | Behavior                                                             |
+| --------------------------------- | ------------ | ----------------------- | -------------------------------------------------------------------- |
+| `/`                               | n/a          | public `<Route>`        | Home page                                                            |
+| `/register`                       | Register     | anon only `<AnonRoute>` | Register form, link to login, navigate to log in page after register |
+| `/login`                          | Login        | anon only `<AnonRoute>` | Login form, link to register, navigate to homepage after login       |
+| `/search/:term`                   |              | public `<Route>`        |                                                                      |
+| `/setting`                        | Setting      | user only `<Route>`     | Setting form,                                                        |
+| `/userIndo`                       | UserInfo     | user only `<Route>`     | show other user info                                                 |
+| `/create/course`                  | CreateCourse | user only `<Route>`     | create new course                                                    |
+| `/course/:courseTittle`           | course       | public `<Route>`        | show course                                                          |
+| `/courses/:category`              | coursesPage  | public `<Route>`        | show course by category                                              |
+| `/courses/:category/:subCategory` | coursesPage  | public `<Route>`        | show course subcategory                                              |
 
 ## Components
 
