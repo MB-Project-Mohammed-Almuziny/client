@@ -21,10 +21,13 @@
 
 ## used library
 
-- nextjs
--
+- [nextjs](https://nextjs.org/)
+- [redux](https://www.npmjs.com/package/redux)
+- [material ui](https://mui.com/)
+- [popup-tools](https://www.npmjs.com/package/popup-tools)
+- [sweetalert2](https://sweetalert2.github.io/)
 
-## React Router Routes (React App)
+## Routes
 
 | Path                              | Component    | Permissions    | Behavior                                                             |
 | --------------------------------- | ------------ | -------------- | -------------------------------------------------------------------- |
@@ -94,12 +97,18 @@
 
 ## Links
 
+### GitHub
+
+[Client repository Link](https://github.com/MB-Project-Mohammed-Almuziny/client)
+
+[Server repository Link](https://github.com/MB-Project-Mohammed-Almuziny/server)
+
+[Deployed App Link](http://heroku.com/)
+
 ### Trello
 
 [Link to trello board](https://trello.com/mbprojectmohammedalmuziny)
 
 ### Slides
-
-The url to your presentation slides
 
 [Slides Link](http://slides.com/)
