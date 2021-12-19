@@ -30,14 +30,22 @@
 | `/setting`                        | Setting      | user only `<Route>`     | Setting form,                                                        |
 | `/userIndo`                       | UserInfo     | user only `<Route>`     | show other user info                                                 |
 | `/create/course`                  | CreateCourse | user only `<Route>`     | create new course                                                    |
-| `/course/:courseTittle`           | course       | public `<Route>`        | show course                                                          |
-| `/courses/:category`              | coursesPage  | public `<Route>`        | show course by category                                              |
-| `/courses/:category/:subCategory` | coursesPage  | public `<Route>`        | show course subcategory                                              |
+| `/course/:courseTittle`           | Course       | public `<Route>`        | show course                                                          |
+| `/courses/:category`              | CoursesPage  | public `<Route>`        | show courses by category                                             |
+| `/courses/:category/:subCategory` | CoursesPage  | public `<Route>`        | show courses subcategory                                             |
 
 ## Components
 
 - Header
 - Home
+- Register
+- Login
+- Setting
+- UserInfo
+- CreateCourse
+- UserInfo
+- Course
+- coursesPage
 
 ## Diagrams
 
