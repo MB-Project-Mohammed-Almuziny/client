@@ -35,6 +35,7 @@ export const Login = () => {
 
           const data = {
             user: response.data.result.name,
+            avatar: response.data.result.avatar,
             userId: response.data.result._id,
             role: response.data.result.role.role,
             token: response.data.token,

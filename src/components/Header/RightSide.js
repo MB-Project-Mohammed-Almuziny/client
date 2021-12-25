@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Button } from "@mui/material";
+import { Link, Typography, Button, Avatar } from "@mui/material";
 
 import { logout } from "./../../reducers/account";
 
 export const RightSide = () => {
-  const { user } = useSelector((state) => state.account);
+  const { user, avatar } = useSelector((state) => state.account);
 
   const dispatch = useDispatch();
 
@@ -15,7 +15,9 @@ export const RightSide = () => {
 
   return user ? (
     <>
-      <h1>{user} </h1>
+      <Typography mr={1}>{user}</Typography>
+
+      <Avatar alt={user} src={avatar} />
 
       <Button color="inherit" onClick={() => handleLogOut()}>
         log out
