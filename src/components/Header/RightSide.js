@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { Link, Button } from "@mui/material";
 
 import { logout } from "./../../reducers/account";
@@ -12,7 +11,6 @@ export const RightSide = () => {
 
   const handleLogOut = () => {
     dispatch(logout({}));
-    axios.get(`${process.env.REACT_APP_BASE_URL}/logout`);
   };
 
   return user ? (
