@@ -7,7 +7,7 @@ import { RightSide } from "./RightSide";
 export const Header = () => {
   return (
     <Box sx={{ flexGrow: 1, pb: 4 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h6" mr={2}>
             CoursesSite
