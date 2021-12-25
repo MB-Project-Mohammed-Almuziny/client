@@ -39,8 +39,7 @@
 | `/userIndo`                       | UserInfo     | user and admin | show other user info                                                 |
 | `/create/course`                  | CreateCourse | user and admin | create new course                                                    |
 | `/course/:courseTittle`           | Course       | public         | show course                                                          |
-| `/courses/:category`              | CoursesPage  | public         | show courses by category                                             |
-| `/courses/:category/:subCategory` | CoursesPage  | public         | show courses subcategory                                             |
+| `/courses/:category`              | CoursesPage  | public         | show courses by category                                             |                                            |
 
 ## Components
 
