@@ -6,14 +6,33 @@ export const CourseCard = ({ courseId, title, creator }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/course/" + courseId)
+    navigate("/course/" + courseId);
+  };
+
+  const handleUserInfo = (e) => {
+    e.preventDefault();
+
+    navigate("/user/" + creator._id);
   };
 
   return (
     <Grid item lg={3} md={4} sm={6} xs={12}>
-      <Card className="pointer" onClick={handleClick}>
-        <Typography>{title}</Typography>
-        <Typography>by: {creator}</Typography>
+      <Card>
+        <Typography onClick={handleClick} className="pointer">
+          {title}
+        </Typography>
+
+        <Typography>
+          by:
+          <Typography
+            onClick={handleUserInfo}
+            className="pointer"
+            variant="button"
+            sx={{ textDecoration: "underline", color: "blue" }}
+          >
+            {creator.name}
+          </Typography>
+        </Typography>
       </Card>
     </Grid>
   );
