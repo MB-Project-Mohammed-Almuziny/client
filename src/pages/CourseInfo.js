@@ -67,6 +67,7 @@ export const CourseInfo = () => {
 
   useEffect(() => {
     getCourseInfo();
+    // eslint-disable-next-line
   }, []);
 
   return course ? (
@@ -107,9 +108,9 @@ export const CourseInfo = () => {
         activeColor="#ffd700"
       />
       <Typography variant="h6">Reviews</Typography>
-      {course.reviews.map((review) => {
-        <Typography> {review}</Typography>;
-      })}
+      {course.reviews.map((review) => (
+        <Typography> {review}</Typography>
+      ))}
     </Container>
   ) : (
     <Container sx={{ mx: "auto", width: 200 }}>

@@ -1,18 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import Swal from "sweetalert2";
-import {
-  Container,
-  Box,
-  Grid,
-  Card,
-  Avatar,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Container, Box, Grid, Avatar, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { CourseCard } from "./../components/CourseCard";
@@ -22,8 +12,6 @@ export const UserInfo = () => {
 
   const { token } = useSelector((state) => state.account);
   const { user_id } = useParams();
-
-  const navigate = useNavigate();
 
   const getUserInfo = () => {
     try {
@@ -44,6 +32,7 @@ export const UserInfo = () => {
 
   useEffect(() => {
     getUserInfo();
+    // eslint-disable-next-line
   }, []);
 
   return userInfo ? (
@@ -82,16 +71,6 @@ export const UserInfo = () => {
             <Typography variant="h4" mt={2}>
               enrole course
             </Typography>
-            {/* <Grid container spacing={2}>
-              {userInfo.enrole.map((course) => (
-                <CourseCard
-                  courseId={course._id}
-                  title={course.title}
-                  creator={course.creator}
-                  key={course._id}
-                />
-              ))}
-            </Grid> */}
             {userInfo.enrole[0] ? (
               <Grid container spacing={2}>
                 {userInfo.enrole.map((course) => (
