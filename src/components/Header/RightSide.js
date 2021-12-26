@@ -15,7 +15,11 @@ export const RightSide = () => {
 
   return user ? (
     <>
-      <Typography mr={1}>{user}</Typography>
+      <Link color="inherit" underline="none" href="/createCourse" mr={2}>
+        create course
+      </Link>
+
+      <Typography mr={2}>{user}</Typography>
 
       <Avatar alt={user} src={avatar} />
 

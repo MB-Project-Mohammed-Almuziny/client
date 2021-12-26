@@ -27,10 +27,6 @@ export const Home = () => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    console.log(courses);
-  }, [courses]);
-
   return (
     <Container>
       <Typography variant="h3" align="center" my={2}>
@@ -40,8 +36,9 @@ export const Home = () => {
       <Grid container spacing={2}>
         {courses.map((course) => (
           <CourseCard
+            courseId={course._id}
             title={course.title}
-            creator={course.creator.name}
+            creator={course.creator}
             key={course._id}
           />
         ))}
