@@ -31,6 +31,12 @@ export const CourseInfo = () => {
     }
   };
 
+  const handleUserInfo = (e) => {
+    e.preventDefault();
+
+    navigate("/user/" + course.creator._id);
+  };
+
   const handleEnrole = (e) => {
     e.preventDefault();
 
@@ -70,7 +76,18 @@ export const CourseInfo = () => {
       </Button>
 
       <Typography>{course.title}</Typography>
-      <Typography>created by: {course.creator.name}</Typography>
+
+      <Typography>
+        created by:
+        <Typography
+          onClick={handleUserInfo}
+          className="pointer"
+          variant="button"
+          sx={{ textDecoration: "underline", color: "blue" }}
+        >
+          {course.creator.name}
+        </Typography>
+      </Typography>
       <hr />
 
       <Typography variant="h6">Description</Typography>
