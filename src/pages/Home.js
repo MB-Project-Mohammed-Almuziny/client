@@ -40,6 +40,7 @@ export const Home = () => {
       <Grid container spacing={2}>
         {courses.map((course) => (
           <CourseCard
+            courseId={course._id}
             title={course.title}
             creator={course.creator.name}
             key={course._id}
