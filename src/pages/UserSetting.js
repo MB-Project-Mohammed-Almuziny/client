@@ -11,10 +11,10 @@ const GetPanel = ({ panel }) => {
     case "Info":
       return <UserSettingInfo />;
 
-    case "Password":
+    case "avatar":
       return <UserSettingAvatar />;
 
-    case "avatar":
+    case "password":
       return <UserSettingPassword />;
 
     default:
@@ -40,7 +40,7 @@ export const UserSetting = () => {
         >
           <Avatar alt={user} src={avatar} />
 
-          {["Info", "Password", "avatar"].map((value) => (
+          {["Info", "avatar", "Password"].map((value) => (
             <ListItem key={value} disableGutters>
               <Typography
                 variant="button"

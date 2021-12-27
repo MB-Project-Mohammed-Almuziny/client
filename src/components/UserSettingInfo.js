@@ -35,7 +35,7 @@ export const UserSettingInfo = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your login successfully",
+            title: "your change saved",
             showConfirmButton: false,
             timer: 1500,
           });
