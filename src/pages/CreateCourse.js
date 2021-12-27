@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -14,7 +14,11 @@ import {
   Button,
 } from "@mui/material";
 
+import { storage } from "./../utils/firebaseConfig";
+
 export const CreateCourse = () => {
+  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
   const [description, setDescription] = useState("");
@@ -27,11 +31,36 @@ export const CreateCourse = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const uploadImg = storage.ref(`images/${thumbnail.name}`).put(thumbnail);
+    uploadImg.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(thumbnail.name)
+          .getDownloadURL()
+          .then((url) => {
+            setThumbnailUrl(url);
+          });
+      }
+    );
+  };
+
+  const submitInfo = () => {
     try {
       axios
         .post(
           `${process.env.REACT_APP_BASE_URL}/course`,
           {
+            thumbnail: thumbnailUrl,
             title,
             about,
             description,
@@ -54,6 +83,10 @@ export const CreateCourse = () => {
     }
   };
 
+  useEffect(() => {
+    submitInfo();
+  }, [thumbnailUrl]);
+
   return (
     <Container>
       <Typography variant="h3" align="center" mb={2}>
@@ -64,6 +97,17 @@ export const CreateCourse = () => {
         <Box p={2}>
           <form onSubmit={handleSubmit}>
             <FormGroup>
+              <TextField
+                onChange={(e) => setThumbnail(e.target.files[0])}
+                fullWidth
+                type="file"
+                id="thumbnail"
+                label="thumbnail"
+                placeholder="thumbnail"
+                margin="normal"
+                required
+              />
+
               <TextField
                 onChange={(e) => setTitle(e.target.value)}
                 fullWidth

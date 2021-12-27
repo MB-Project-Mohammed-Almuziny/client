@@ -7,10 +7,7 @@ import ReactStars from "react-rating-stars-component";
 import { Container, Typography, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
-import { CourseSettingBtn } from "./../components/CourseSettingBtn";
-
-export const CourseInfo = () => {
+export const CourseLearn = () => {
   const [course, setCourse] = useState();
 
   const { courseId } = useParams();
@@ -45,8 +42,6 @@ export const CourseInfo = () => {
 
   return course ? (
     <Container>
-      <EnroleOrLearnBtn />
-      <CourseSettingBtn courseId={course._id} creator={course.creator} />
 
       <Typography>{course.title}</Typography>
 
