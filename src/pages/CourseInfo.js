@@ -3,15 +3,15 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import Swal from "sweetalert2";
 import ReactStars from "react-rating-stars-component";
 import { Container, Typography, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { EnroleOrLearn } from "./../components/EnroleOrLearn";
+
 export const CourseInfo = () => {
   const [course, setCourse] = useState();
 
-  const { userId } = useSelector((state) => state.account);
   const { courseId } = useParams();
 
   const navigate = useNavigate();
@@ -37,34 +37,6 @@ export const CourseInfo = () => {
     navigate("/user/" + course.creator._id);
   };
 
-  const handleEnrole = (e) => {
-    e.preventDefault();
-
-    try {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/user/enrole`, {
-          userId,
-          courseId,
-        })
-        .then((result) => {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Your login successfully",
-            showConfirmButton: false,
-            timer: 1000,
-          });
-
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     getCourseInfo();
     // eslint-disable-next-line
@@ -72,9 +44,7 @@ export const CourseInfo = () => {
 
   return course ? (
     <Container>
-      <Button onClick={handleEnrole} variant="contained">
-        Enrole now
-      </Button>
+      <EnroleOrLearn />
 
       <Typography>{course.title}</Typography>
 
