@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Typography, Button, Avatar } from "@mui/material";
+import { Link, Typography, Button, Avatar, IconButton } from "@mui/material";
+import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
 
 import { logout } from "./../../reducers/account";
 
@@ -22,6 +23,12 @@ export const RightSide = () => {
       <Typography mr={2}>{user}</Typography>
 
       <Avatar alt={user} src={avatar} />
+
+      <Link color="inherit" underline="none" href="/user/setting">
+        <IconButton color="inherit">
+          <SettingsApplicationsRoundedIcon />
+        </IconButton>
+      </Link>
 
       <Button color="inherit" onClick={() => handleLogOut()}>
         log out
