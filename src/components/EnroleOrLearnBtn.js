@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export const EnroleOrLearn = () => {
+export const EnroleOrLearnBtn = () => {
   const [isStudent, seIsStudent] = useState(false);
 
   const { userId, token } = useSelector((state) => state.account);
