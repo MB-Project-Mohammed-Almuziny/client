@@ -46,7 +46,7 @@ export const CourseInfo = () => {
   return course ? (
     <Container>
       <EnroleOrLearnBtn />
-      <CourseSettingBtn creator={course.creator} />
+      <CourseSettingBtn courseId={course._id} creator={course.creator} />
 
       <Typography>{course.title}</Typography>
 

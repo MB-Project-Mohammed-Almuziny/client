@@ -5,6 +5,7 @@ import axios from "axios";
 import { Grid, Avatar, List, ListItem, Typography } from "@mui/material";
 
 import { CourseSettingInfo } from "./../components/CourseSettingInfo";
+import { CourseAddLesson } from "./../components/CourseAddLesson";
 
 const GetPanel = ({ panel, course, getCourseInfo }) => {
   switch (panel) {
@@ -12,6 +13,9 @@ const GetPanel = ({ panel, course, getCourseInfo }) => {
       return (
         <CourseSettingInfo course={course} getCourseInfo={getCourseInfo} />
       );
+
+    case "Add Lessons":
+      return <CourseAddLesson course={course} />;
 
     default:
       return <>404</>;
@@ -62,7 +66,7 @@ export const CourseSetting = () => {
         >
           <Avatar alt={user} src={course.thumbnail} />
 
-          {["Info"].map((value) => (
+          {["Info", "Add Lessons"].map((value) => (
             <ListItem key={value} disableGutters>
               <Typography
                 variant="button"
