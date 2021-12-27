@@ -82,7 +82,7 @@ export const UserSettingAvatar = () => {
   return (
     <Container>
       <Typography variant="h3" align="center" mb={2}>
-        your information
+        your avatar
       </Typography>
 
       <Card>
