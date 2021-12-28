@@ -38,7 +38,7 @@ export const UserSetting = () => {
             bgcolor: "background.paper",
           }}
         >
-          <Avatar alt={user} src={avatar} />
+          <Avatar alt={user} src={avatar}  sx={{ m: "auto" }} />
 
           {["Info", "Avatar", "Password"].map((value) => (
             <ListItem key={value} disableGutters>

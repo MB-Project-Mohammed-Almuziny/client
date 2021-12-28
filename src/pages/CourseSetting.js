@@ -5,6 +5,7 @@ import axios from "axios";
 import { Grid, Avatar, List, ListItem, Typography } from "@mui/material";
 
 import { CourseSettingInfo } from "./../components/CourseSettingInfo";
+import { CourseAddSection } from "../components/CourseAddSection";
 import { CourseAddLesson } from "./../components/CourseAddLesson";
 
 const GetPanel = ({ panel, course, getCourseInfo }) => {
@@ -14,8 +15,11 @@ const GetPanel = ({ panel, course, getCourseInfo }) => {
         <CourseSettingInfo course={course} getCourseInfo={getCourseInfo} />
       );
 
+    case "Add Section":
+      return <CourseAddSection course={course} getCourseInfo={getCourseInfo} />;
+
     case "Add Lessons":
-      return <CourseAddLesson course={course} />;
+      return <CourseAddLesson course={course} getCourseInfo={getCourseInfo} />;
 
     default:
       return <>404</>;
@@ -27,7 +31,7 @@ export const CourseSetting = () => {
   const [isCreator, setIsCreator] = useState(false);
   const [course, setCourse] = useState();
 
-  const { user, userId, avatar } = useSelector((state) => state.account);
+  const { user, userId } = useSelector((state) => state.account);
   const { courseId } = useParams();
 
   const getCourseInfo = () => {
@@ -47,10 +51,12 @@ export const CourseSetting = () => {
 
   useEffect(() => {
     getCourseInfo();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (course) userId === course.creator._id && setIsCreator(true);
+    // eslint-disable-next-line
   }, [course]);
 
   return isCreator ? (
@@ -64,9 +70,14 @@ export const CourseSetting = () => {
             bgcolor: "background.paper",
           }}
         >
-          <Avatar alt={user} src={course.thumbnail} />
+          <Avatar
+            variant="square"
+            alt={user}
+            src={course.thumbnail}
+            sx={{ m: "auto", width: "60%", height: "20%" }}
+          />
 
-          {["Info", "Add Lessons"].map((value) => (
+          {["Info", "Add Section", "Add Lessons"].map((value) => (
             <ListItem key={value} disableGutters>
               <Typography
                 variant="button"
