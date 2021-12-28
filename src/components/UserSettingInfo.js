@@ -75,6 +75,7 @@ export const UserSettingInfo = () => {
 
   useEffect(() => {
     getUserInfo();
+    // eslint-disable-next-line
   }, []);
 
   return (

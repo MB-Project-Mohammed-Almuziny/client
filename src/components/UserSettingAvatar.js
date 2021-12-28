@@ -31,6 +31,7 @@ export const UserSettingAvatar = () => {
       uploadImg.on(
         "state_changed",
         (snapshot) => {
+          // eslint-disable-next-line
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
@@ -90,6 +91,7 @@ export const UserSettingAvatar = () => {
 
   useEffect(() => {
     if (newAvatarUrl) submitAvatar();
+    // eslint-disable-next-line
   }, [newAvatarUrl]);
 
   return (
@@ -98,9 +100,10 @@ export const UserSettingAvatar = () => {
         your avatar
       </Typography>
 
+
       <Card>
         <Box p={2}>
-          <img src={avatar} />
+          <img alt={user} src={avatar} />
           <form onSubmit={(e) => handleSubmit(e)}>
             <TextField
               onChange={(e) => setNewAvatar(e.target.files[0])}

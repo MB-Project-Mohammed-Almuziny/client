@@ -6,14 +6,11 @@ import {
   Container,
   Box,
   Card,
-  FormGroup,
   TextField,
   Typography,
   Button,
+  LinearProgress,
 } from "@mui/material";
-import LinearProgress, {
-  LinearProgressProps,
-} from "@mui/material/LinearProgress";
 
 import { storage } from "./../utils/firebaseConfig";
 
@@ -22,7 +19,7 @@ export const CourseAddLesson = ({ course }) => {
   const [lessonUrl, setLessonUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const { userId, token } = useSelector((state) => state.account);
+  const { token } = useSelector((state) => state.account);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +31,7 @@ export const CourseAddLesson = ({ course }) => {
         (snapshot) => {
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            // eslint-disable-next-line
           );
           setUploadProgress(progress);
         },
@@ -94,6 +92,7 @@ export const CourseAddLesson = ({ course }) => {
 
   useEffect(() => {
     if (lessonUrl) submitLesson();
+    // eslint-disable-next-line
   }, [lessonUrl]);
 
   return (

@@ -27,7 +27,7 @@ export const CourseSetting = () => {
   const [isCreator, setIsCreator] = useState(false);
   const [course, setCourse] = useState();
 
-  const { user, userId, avatar } = useSelector((state) => state.account);
+  const { user, userId } = useSelector((state) => state.account);
   const { courseId } = useParams();
 
   const getCourseInfo = () => {
@@ -47,10 +47,12 @@ export const CourseSetting = () => {
 
   useEffect(() => {
     getCourseInfo();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (course) userId === course.creator._id && setIsCreator(true);
+    // eslint-disable-next-line
   }, [course]);
 
   return isCreator ? (
