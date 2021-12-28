@@ -6,6 +6,8 @@ import {
   Container,
   Box,
   Card,
+  Select,
+  MenuItem,
   TextField,
   Typography,
   Button,
@@ -14,7 +16,9 @@ import {
 
 import { storage } from "./../utils/firebaseConfig";
 
-export const CourseAddLesson = ({ course }) => {
+export const CourseAddLesson = ({ course, getCourseInfo }) => {
+  const [sectionIndex, setSectionIndex] = useState(0);
+  const [lessonName, setLessonName] = useState("");
   const [lesson, setLesson] = useState("");
   const [lessonUrl, setLessonUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -65,6 +69,8 @@ export const CourseAddLesson = ({ course }) => {
           `${process.env.REACT_APP_BASE_URL}/course/addLesson`,
           {
             courseId: course._id,
+            sectionIndex,
+            lessonName,
             lesson: lessonUrl,
           },
           {
@@ -80,13 +86,14 @@ export const CourseAddLesson = ({ course }) => {
             timer: 2000,
           });
 
+          getCourseInfo();
           setUploadProgress(0);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err + "");;
         });
     } catch (err) {
-      console.log(err);
+      console.error(err + "");;
     }
   };
 
@@ -102,8 +109,40 @@ export const CourseAddLesson = ({ course }) => {
       </Typography>
 
       <Card>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={sectionIndex}
+          label="sectionIndex"
+          onChange={(e) => setSectionIndex(e.target.value)}
+        >
+          {course.lessonSections.map((section, i) => (
+            <MenuItem value={i} key={section._id}>
+              section {i + 1}: {section.sectionName}
+            </MenuItem>
+          ))}
+        </Select>
+
         <Box p={2}>
+          {course.lessonSections[Number(sectionIndex)].lessons.map(
+            (lesson, i) => (
+              <Typography key={lesson._id}>
+                lesson {i + 1}: {lesson.lessonName}
+              </Typography>
+            )
+          )}
+
           <form onSubmit={(e) => handleSubmit(e)}>
+            <TextField
+              onChange={(e) => setLessonName(e.target.value)}
+              fullWidth
+              id="lessonName"
+              label="lesson name"
+              placeholder="lesson nanme"
+              margin="normal"
+              required
+            />
+
             <TextField
               onChange={(e) => setLesson(e.target.files[0])}
               fullWidth
