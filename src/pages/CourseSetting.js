@@ -64,7 +64,12 @@ export const CourseSetting = () => {
             bgcolor: "background.paper",
           }}
         >
-          <Avatar alt={user} src={course.thumbnail} />
+          <Avatar
+            variant="square"
+            alt={user}
+            src={course.thumbnail}
+            sx={{ m: "auto", width: "60%", height: "20%" }}
+          />
 
           {["Info", "Add Lessons"].map((value) => (
             <ListItem key={value} disableGutters>
