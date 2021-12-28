@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -13,11 +13,29 @@ import {
 } from "@mui/material";
 
 export const UserSettingInfo = () => {
+  const [userInfo, setUserInfo] = useState("");
   const [name, setName] = useState("");
   const [headline, setHeadline] = useState("");
   const [about, setAbout] = useState("");
 
   const { userId, token } = useSelector((state) => state.account);
+
+  const getUserInfo = () => {
+    try {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/user/info/${userId}`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((result) => {
+          setUserInfo(result.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSubmit = (e) => {
     try {
@@ -39,6 +57,13 @@ export const UserSettingInfo = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+
+          e.target.name.value =
+            e.target.headline.value =
+            e.target.about.value =
+              "";
+
+          getUserInfo();
         })
         .catch((err) => {
           console.log(err);
@@ -47,6 +72,11 @@ export const UserSettingInfo = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <Container>
       <Typography variant="h3" align="center" mb={2}>
@@ -62,7 +92,8 @@ export const UserSettingInfo = () => {
                 fullWidth
                 id="name"
                 label="name"
-                placeholder="name"
+                placeholder={userInfo.name}
+                InputLabelProps={{ shrink: true }}
                 margin="normal"
               />
 
@@ -71,7 +102,8 @@ export const UserSettingInfo = () => {
                 fullWidth
                 id="headline"
                 label="headline"
-                placeholder="headline"
+                placeholder={userInfo.headline}
+                InputLabelProps={{ shrink: true }}
                 margin="normal"
               />
 
@@ -80,7 +112,8 @@ export const UserSettingInfo = () => {
                 fullWidth
                 id="about"
                 label="about"
-                placeholder="about"
+                placeholder={userInfo.about}
+                InputLabelProps={{ shrink: true }}
                 margin="normal"
               />
             </FormGroup>

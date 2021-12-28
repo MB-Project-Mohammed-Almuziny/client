@@ -11,40 +11,53 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import LinearProgress, {
+  LinearProgressProps,
+} from "@mui/material/LinearProgress";
 
 import { storage } from "./../utils/firebaseConfig";
 
 export const CourseAddLesson = ({ course }) => {
   const [lesson, setLesson] = useState("");
   const [lessonUrl, setLessonUrl] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const { userId, token } = useSelector((state) => state.account);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const uploadImg = storage.ref(`videos/${lesson.name}`).put(lesson);
-    uploadImg.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref("videos")
-          .child(lesson.name)
-          .getDownloadURL()
-          .then((url) => {
-            setLessonUrl(url);
-            e.target.lesson.value = "";
-          });
-      }
-    );
+    if (lesson.type.split("/")[0] === "video") {
+      const uploadImg = storage.ref(`videos/${lesson.name}`).put(lesson);
+      uploadImg.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setUploadProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("videos")
+            .child(lesson.name)
+            .getDownloadURL()
+            .then((url) => {
+              setLessonUrl(url);
+              e.target.lesson.value = "";
+            });
+        }
+      );
+    } else {
+      Swal.fire({
+        position: "top",
+        icon: "warning",
+        text: "lesson have to be video file",
+      });
+    }
   };
 
   const submitLesson = () => {
@@ -64,10 +77,12 @@ export const CourseAddLesson = ({ course }) => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "your change saved",
+            title: "your lesson have been add successfully",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
+
+          setUploadProgress(0);
         })
         .catch((err) => {
           console.log(err);
@@ -102,9 +117,11 @@ export const CourseAddLesson = ({ course }) => {
               required
             />
 
+            <LinearProgress variant="determinate" value={uploadProgress} />
+
             <Typography align="center" my={2}>
               <Button variant="contained" type="submit">
-                save change
+                add lesson
               </Button>
             </Typography>
           </form>

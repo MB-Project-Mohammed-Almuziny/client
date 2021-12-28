@@ -1,49 +1,62 @@
 import { React, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
   Container,
   Box,
   Card,
-  FormGroup,
   TextField,
   Typography,
   Button,
 } from "@mui/material";
 
 import { storage } from "./../utils/firebaseConfig";
+import { login } from "./../reducers/account";
 
 export const UserSettingAvatar = () => {
   const [newAvatar, setNewAvatar] = useState("");
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
 
-  const { userId, avatar, token } = useSelector((state) => state.account);
+  const { user, avatar, userId, role, token } = useSelector(
+    (state) => state.account
+  );
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const uploadImg = storage.ref(`images/${newAvatar.name}`).put(newAvatar);
-    uploadImg.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(newAvatar.name)
-          .getDownloadURL()
-          .then((url) => {
-            setNewAvatarUrl(url);
-          });
-      }
-    );
+    if (newAvatar.type.split("/")[0] === "image") {
+      const uploadImg = storage.ref(`images/${newAvatar.name}`).put(newAvatar);
+      uploadImg.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+        },
+        (err) => {
+          console.log(err);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(newAvatar.name)
+            .getDownloadURL()
+            .then((url) => {
+              setNewAvatarUrl(url);
+              e.target.newAvatar.value = "";
+              dispatch(login({ user, avatar: url, userId, role, token }));
+            });
+        }
+      );
+    } else {
+      Swal.fire({
+        position: "top",
+        icon: "warning",
+        text: "avatar have to be image file",
+      });
+    }
   };
 
   const submitAvatar = () => {
@@ -76,7 +89,7 @@ export const UserSettingAvatar = () => {
   };
 
   useEffect(() => {
-    submitAvatar();
+    if (newAvatarUrl) submitAvatar();
   }, [newAvatarUrl]);
 
   return (
@@ -96,6 +109,7 @@ export const UserSettingAvatar = () => {
               id="newAvatar"
               label="newAvatar"
               placeholder="newAvatar"
+              InputLabelProps={{ shrink: true }}
               margin="normal"
               required
             />
