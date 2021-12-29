@@ -1,10 +1,9 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";

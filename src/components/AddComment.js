@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Comment, Avatar, Form, Button, List, Input } from "antd";
+import { Comment, Avatar, Form, Button, Input } from "antd";
 
 const { TextArea } = Input;
 

@@ -1,10 +1,26 @@
-import React from "react";
-import { Comment, Avatar, Form, Button, List, Input } from "antd";
+import { React, useState, useEffect } from "react";
+import { Comment, List } from "antd";
 // import moment from 'moment';
 
 import { AddComment } from "./AddComment";
+import { AddReply } from "./AddReply";
+import { Replys } from "./Replys";
 
 export const Comments = ({ course, getCourseInfo }) => {
+  const [showReplyForm, setShowReplyForm] = useState(
+    Array(course.comments.length).fill(false)
+  );
+
+  const toggleShowReplyForm = (i) => {
+    const newArr = [...showReplyForm];
+    newArr.splice(i, 1, !showReplyForm[i]);
+    setShowReplyForm(newArr);
+  };
+
+  useEffect(() => {
+    console.log("form :", showReplyForm);
+  }, [showReplyForm]);
+
   console.log("comments : ", course);
   return (
     <>
@@ -15,14 +31,31 @@ export const Comments = ({ course, getCourseInfo }) => {
         header={`${course.comments.length} comments`}
         itemLayout="horizontal"
         dataSource={course.comments}
-        renderItem={(comment) => (
+        renderItem={(comment, i) => (
           <li>
             <Comment
-              actions={[<span key="comment-list-reply-to-0">Reply to</span>]}
+              actions={[
+                <span
+                  key={comment._id + "reply"}
+                  onClick={() => toggleShowReplyForm(i)}
+                >
+                  Reply to
+                </span>,
+              ]}
               author={comment.creator.name}
               avatar={comment.creator.avatar}
               content={comment.description}
-            />
+            >
+              <AddReply
+                commentId={comment._id}
+                showReplyForm={showReplyForm[i]}
+                toggleShowReplyForm={toggleShowReplyForm}
+                getCourseInfo={getCourseInfo}
+                i={i}
+              />
+
+              <Replys replys={comment.replays} />
+            </Comment>
           </li>
         )}
       />

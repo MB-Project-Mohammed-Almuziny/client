@@ -1,17 +1,16 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Layout, Menu } from "antd";
 import ReactPlayer from "react-player";
 
 import { Comments } from "./../components/Comments";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 export const CourseLearn = () => {
