@@ -2,10 +2,9 @@ import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import ReactStars from "react-rating-stars-component";
 import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Rate } from "antd";
 import ReactPlayer from "react-player";
 
 import { Comments } from "./../components/Comments";
@@ -51,10 +50,6 @@ export const CourseLearn = () => {
   useEffect(() => {
     if (course) setLessonContent(course.lessonSections[0].lessons[0].lesson);
   }, [course]);
-
-  useEffect(() => {
-    console.log("lesson contect :", lessonContent);
-  }, [lessonContent]);
 
   return course ? (
     <Layout style={{ minHeight: "100vh" }}>
@@ -110,15 +105,8 @@ export const CourseLearn = () => {
           <Typography>{course.about}</Typography>
 
           <Typography variant="h6">feedback</Typography>
-          <ReactStars
-            count={5}
-            size={50}
-            isHalf={true}
-            emptyIcon={<i className="far fa-star"></i>}
-            halfIcon={<i className="fa fa-star-half-alt"></i>}
-            fullIcon={<i className="fa fa-star"></i>}
-            activeColor="#ffd700"
-          />
+          <Rate />
+
           <Typography variant="h6">Reviews</Typography>
           {course.reviews.map((review) => (
             <Typography> {review}</Typography>
