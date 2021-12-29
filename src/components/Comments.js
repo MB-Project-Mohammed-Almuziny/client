@@ -17,11 +17,6 @@ export const Comments = ({ course, getCourseInfo }) => {
     setShowReplyForm(newArr);
   };
 
-  useEffect(() => {
-    console.log("form :", showReplyForm);
-  }, [showReplyForm]);
-
-  console.log("comments : ", course);
   return (
     <>
       <AddComment course={course} getCourseInfo={getCourseInfo} />
@@ -32,31 +27,34 @@ export const Comments = ({ course, getCourseInfo }) => {
         itemLayout="horizontal"
         dataSource={course.comments}
         renderItem={(comment, i) => (
-          <li>
-            <Comment
-              actions={[
-                <span
-                  key={comment._id + "reply"}
-                  onClick={() => toggleShowReplyForm(i)}
-                >
-                  Reply to
-                </span>,
-              ]}
-              author={comment.creator.name}
-              avatar={comment.creator.avatar}
-              content={comment.description}
-            >
-              <AddReply
-                commentId={comment._id}
-                showReplyForm={showReplyForm[i]}
-                toggleShowReplyForm={toggleShowReplyForm}
-                getCourseInfo={getCourseInfo}
-                i={i}
-              />
+          <>
+            <li>
+              <Comment
+                actions={[
+                  <span
+                    key={comment._id + "reply"}
+                    onClick={() => toggleShowReplyForm(i)}
+                  >
+                    Reply to
+                  </span>,
+                ]}
+                author={comment.creator.name}
+                avatar={comment.creator.avatar}
+                content={comment.description}
+              >
+                <AddReply
+                  commentId={comment._id}
+                  showReplyForm={showReplyForm[i]}
+                  toggleShowReplyForm={toggleShowReplyForm}
+                  getCourseInfo={getCourseInfo}
+                  i={i}
+                />
 
-              <Replys replys={comment.replays} />
-            </Comment>
-          </li>
+                <Replys replys={comment.replays} />
+              </Comment>
+            </li>
+            <hr />
+          </>
         )}
       />
     </>

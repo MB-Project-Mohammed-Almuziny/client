@@ -49,9 +49,12 @@ export const CourseLearn = () => {
   }, []);
 
   useEffect(() => {
-    if (course)
-      setLessonContent(course.lessonSections[0].lessons[0].lessonName);
+    if (course) setLessonContent(course.lessonSections[0].lessons[0].lesson);
   }, [course]);
+
+  useEffect(() => {
+    console.log("lesson contect :", lessonContent);
+  }, [lessonContent]);
 
   return course ? (
     <Layout style={{ minHeight: "100vh" }}>
@@ -121,6 +124,7 @@ export const CourseLearn = () => {
             <Typography> {review}</Typography>
           ))}
 
+          <Typography variant="h6">Comments</Typography>
           <Comments course={course} getCourseInfo={getCourseInfo} />
         </Container>
       </Content>
