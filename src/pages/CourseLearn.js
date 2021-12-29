@@ -1,14 +1,21 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
-import ReactStars from "react-rating-stars-component";
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Layout, Menu, Rate } from "antd";
+import ReactPlayer from "react-player";
+
+import { Comments } from "./../components/Comments";
+
+const { Sider, Content } = Layout;
+const { SubMenu } = Menu;
 
 export const CourseLearn = () => {
   const [course, setCourse] = useState();
+  const [collapsed, setCollapsed] = useState(false);
+  const [lessonContent, setLessonContent] = useState("");
 
   const { courseId } = useParams();
 
@@ -40,45 +47,76 @@ export const CourseLearn = () => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    if (course) setLessonContent(course.lessonSections[0].lessons[0].lesson);
+  }, [course]);
+
   return course ? (
-    <Container>
-
-      <Typography>{course.title}</Typography>
-
-      <Typography>
-        created by:
-        <Typography
-          onClick={handleUserInfo}
-          className="pointer"
-          variant="button"
-          sx={{ textDecoration: "underline", color: "blue" }}
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={() => setCollapsed(!collapsed)}
+      >
+        <div className="logo" />
+        <Menu
+          defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
+          defaultOpenKeys={[course.lessonSections[0]._id]}
+          mode="inline"
         >
-          {course.creator.name}
-        </Typography>
-      </Typography>
-      <hr />
+          {course.lessonSections.map((section) => (
+            <SubMenu key={section._id} title={section.sectionName}>
+              {section.lessons.map((lesson) => (
+                <Menu.Item
+                  onClick={() => setLessonContent(lesson.lesson)}
+                  key={lesson._id}
+                >
+                  {lesson.lessonName}
+                </Menu.Item>
+              ))}
+            </SubMenu>
+          ))}
+        </Menu>
+      </Sider>
 
-      <Typography variant="h6">Description</Typography>
-      <Typography>{course.description}</Typography>
+      <Content>
+        <Container>
+          <Typography>{course.title}</Typography>
 
-      <Typography variant="h6">About</Typography>
-      <Typography>{course.about}</Typography>
+          <Typography>
+            created by:
+            <Typography
+              onClick={handleUserInfo}
+              className="pointer"
+              variant="button"
+              sx={{ textDecoration: "underline", color: "blue" }}
+            >
+              {course.creator.name}
+            </Typography>
+          </Typography>
+          <hr />
 
-      <Typography variant="h6">feedback</Typography>
-      <ReactStars
-        count={5}
-        size={50}
-        isHalf={true}
-        emptyIcon={<i className="far fa-star"></i>}
-        halfIcon={<i className="fa fa-star-half-alt"></i>}
-        fullIcon={<i className="fa fa-star"></i>}
-        activeColor="#ffd700"
-      />
-      <Typography variant="h6">Reviews</Typography>
-      {course.reviews.map((review) => (
-        <Typography> {review}</Typography>
-      ))}
-    </Container>
+          <ReactPlayer url={lessonContent} controls={true} width="100%" />
+
+          <Typography variant="h6">Description</Typography>
+          <Typography>{course.description}</Typography>
+
+          <Typography variant="h6">About</Typography>
+          <Typography>{course.about}</Typography>
+
+          <Typography variant="h6">feedback</Typography>
+          <Rate />
+
+          <Typography variant="h6">Reviews</Typography>
+          {course.reviews.map((review) => (
+            <Typography> {review}</Typography>
+          ))}
+
+          <Typography variant="h6">Comments</Typography>
+          <Comments course={course} getCourseInfo={getCourseInfo} />
+        </Container>
+      </Content>
+    </Layout>
   ) : (
     <Container sx={{ mx: "auto", width: 200 }}>
       <CircularProgress />
