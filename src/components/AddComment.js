@@ -13,19 +13,20 @@ export const AddComment = ({ course, getCourseInfo }) => {
   const createComment = () => {
     setDescription("");
 
-
     try {
-      axios.post(
-        `${process.env.REACT_APP_BASE_URL}/comments`,
-        {
-          creator: userId,
-          description,
-          reference: course._id,
-        },
-        {
-          headers: { Authorization: "Bearer " + token },
-        }
-      );
+      axios
+        .post(
+          `${process.env.REACT_APP_BASE_URL}/comments`,
+          {
+            creator: userId,
+            description,
+            reference: course._id,
+          },
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        )
+        .then(() => getCourseInfo());
     } catch (err) {
       console.error(err);
     }
@@ -38,10 +39,11 @@ export const AddComment = ({ course, getCourseInfo }) => {
         <Form onFinish={createComment}>
           <Form.Item>
             <TextArea
+              onChange={(e) => setDescription(e.target.value)}
               id="description"
               value={description}
               rows={4}
-              onChange={(e) => setDescription(e.target.value)}
+              required={true}
             />
           </Form.Item>
           <Form.Item>
