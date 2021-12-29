@@ -9,6 +9,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Layout, Menu } from "antd";
 import ReactPlayer from "react-player";
 
+import { Comments } from "./../components/Comments";
+
 const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
@@ -119,6 +121,8 @@ export const CourseLearn = () => {
           {course.reviews.map((review) => (
             <Typography> {review}</Typography>
           ))}
+
+          <Comments course={course} getCourseInfo={getCourseInfo} />
         </Container>
       </Content>
     </Layout>
