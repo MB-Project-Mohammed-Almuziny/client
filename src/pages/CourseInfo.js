@@ -1,19 +1,23 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Rate } from "antd";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
 import { CourseSettingBtn } from "./../components/CourseSettingBtn";
+import { RatingStatus } from "./../components/RatingStatus";
+import { Reviews } from "./../components/Reviews";
+import { UserReview } from "./../components/UserReview";
 
 export const CourseInfo = () => {
   const [course, setCourse] = useState();
+  const [reviews, setReviews] = useState();
 
   const { courseId } = useParams();
-
+  const { userId } = useSelector((state) => state.account);
   const navigate = useNavigate();
 
   const getCourseInfo = () => {
@@ -27,7 +31,22 @@ export const CourseInfo = () => {
           console.log(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
+    }
+  };
+
+  const getReviews = () => {
+    try {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/reviews/${courseId}`)
+        .then((result) => {
+          setReviews(result.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -39,8 +58,10 @@ export const CourseInfo = () => {
 
   useEffect(() => {
     getCourseInfo();
+    getReviews();
     // eslint-disable-next-line
   }, []);
+
 
   return course ? (
     <Container>
@@ -68,13 +89,18 @@ export const CourseInfo = () => {
       <Typography variant="h6">About</Typography>
       <Typography>{course.about}</Typography>
 
-      <Typography variant="h6">feedback</Typography>
-      <Rate />
-      
+      <Typography variant="h6">rating status</Typography>
+      {reviews && reviews.result[0] && <RatingStatus reviews={reviews} />}
+
       <Typography variant="h6">Reviews</Typography>
-      {course.reviews.map((review) => (
-        <Typography> {review}</Typography>
-      ))}
+      {userId && (
+        <UserReview
+          creator={userId}
+          reference={course._id}
+          getReviews={getReviews}
+        />
+      )}
+      {reviews && reviews.result[0] && <Reviews reviews={reviews} />}
     </Container>
   ) : (
     <Container sx={{ mx: "auto", width: 200 }}>
