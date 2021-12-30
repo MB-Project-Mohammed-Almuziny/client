@@ -1,22 +1,23 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Rate } from "antd";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
 import { CourseSettingBtn } from "./../components/CourseSettingBtn";
 import { RatingStatus } from "./../components/RatingStatus";
 import { Reviews } from "./../components/Reviews";
+import { UserReview } from "./../components/UserReview";
 
 export const CourseInfo = () => {
   const [course, setCourse] = useState();
   const [reviews, setReviews] = useState();
 
   const { courseId } = useParams();
-
+  const { userId } = useSelector((state) => state.account);
   const navigate = useNavigate();
 
   const getCourseInfo = () => {
@@ -61,10 +62,6 @@ export const CourseInfo = () => {
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   console.log("reviews : ", reviews);
-  // }, [reviews]);
-
   return course ? (
     <Container>
       <EnroleOrLearnBtn />
@@ -95,6 +92,13 @@ export const CourseInfo = () => {
       <RatingStatus reviews={reviews} />
 
       <Typography variant="h6">Reviews</Typography>
+      {userId && (
+        <UserReview
+          creator={userId}
+          reference={course._id}
+          getReviews={getReviews}
+        />
+      )}
       <Reviews reviews={reviews} />
     </Container>
   ) : (
