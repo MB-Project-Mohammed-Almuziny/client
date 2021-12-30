@@ -8,6 +8,7 @@ import { Rate } from "antd";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
 import { CourseSettingBtn } from "./../components/CourseSettingBtn";
+import { RatingStatus } from "./../components/RatingStatus";
 import { Reviews } from "./../components/Reviews";
 
 export const CourseInfo = () => {
@@ -90,8 +91,8 @@ export const CourseInfo = () => {
       <Typography variant="h6">About</Typography>
       <Typography>{course.about}</Typography>
 
-      <Typography variant="h6">feedback</Typography>
-      <Rate />
+      <Typography variant="h6">rating status</Typography>
+      <RatingStatus reviews={reviews} />
 
       <Typography variant="h6">Reviews</Typography>
       <Reviews reviews={reviews} />
