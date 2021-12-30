@@ -62,6 +62,7 @@ export const CourseInfo = () => {
     // eslint-disable-next-line
   }, []);
 
+
   return course ? (
     <Container>
       <EnroleOrLearnBtn />
@@ -89,7 +90,7 @@ export const CourseInfo = () => {
       <Typography>{course.about}</Typography>
 
       <Typography variant="h6">rating status</Typography>
-      <RatingStatus reviews={reviews} />
+      {reviews && reviews.result[0] && <RatingStatus reviews={reviews} />}
 
       <Typography variant="h6">Reviews</Typography>
       {userId && (
@@ -99,7 +100,7 @@ export const CourseInfo = () => {
           getReviews={getReviews}
         />
       )}
-      <Reviews reviews={reviews} />
+      {reviews && reviews.result[0] && <Reviews reviews={reviews} />}
     </Container>
   ) : (
     <Container sx={{ mx: "auto", width: 200 }}>

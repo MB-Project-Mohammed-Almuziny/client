@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import "antd/dist/antd.css";
 
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";

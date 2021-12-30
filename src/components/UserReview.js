@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Comment, Avatar, Form, Button, Input, Rate, List } from "antd";
+import { Comment, Avatar, Form, Button, Input, Rate } from "antd";
 
 const { TextArea } = Input;
 
@@ -12,8 +12,6 @@ export const UserReview = ({ creator, reference, getReviews }) => {
   const [rating, setRating] = useState(1);
 
   const { avatar, token } = useSelector((state) => state.account);
-
-  console.log({ creator, reference });
 
   const getUserReview = () => {
     try {
@@ -62,20 +60,12 @@ export const UserReview = ({ creator, reference, getReviews }) => {
 
   useEffect(() => {
     getUserReview();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    console.log("user review: ", userReview);
     if (userReview) setShowReviewForm(false);
   }, [userReview]);
-
-  useEffect(() => {
-    console.log(rating);
-  }, [rating]);
-
-  useEffect(() => {
-    console.log(description);
-  }, [description]);
 
   return showReviewForm ? (
     <Comment
@@ -99,7 +89,7 @@ export const UserReview = ({ creator, reference, getReviews }) => {
             </Form.Item>
             <Form.Item>
               <Button htmlType="submit" type="primary">
-                Add Reply
+                Add Review
               </Button>
             </Form.Item>
           </Form>
