@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import ReactPlayer from "react-player";
 import axios from "axios";
 import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Layout, Menu, Rate } from "antd";
-import ReactPlayer from "react-player";
+import { StarOutlined } from "@ant-design/icons";
 
 import { Comments } from "./../components/Comments";
 
@@ -105,7 +106,7 @@ export const CourseLearn = () => {
           <Typography>{course.about}</Typography>
 
           <Typography variant="h6">feedback</Typography>
-          <Rate />
+          <Rate character={<StarOutlined />} />
 
           <Typography variant="h6">Reviews</Typography>
           {course.reviews.map((review) => (

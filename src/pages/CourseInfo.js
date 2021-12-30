@@ -8,9 +8,11 @@ import { Rate } from "antd";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
 import { CourseSettingBtn } from "./../components/CourseSettingBtn";
+import { Reviews } from "./../components/Reviews";
 
 export const CourseInfo = () => {
   const [course, setCourse] = useState();
+  const [reviews, setReviews] = useState();
 
   const { courseId } = useParams();
 
@@ -27,7 +29,22 @@ export const CourseInfo = () => {
           console.log(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
+    }
+  };
+
+  const getReviews = () => {
+    try {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/reviews/${courseId}`)
+        .then((result) => {
+          setReviews(result.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -39,8 +56,13 @@ export const CourseInfo = () => {
 
   useEffect(() => {
     getCourseInfo();
+    getReviews();
     // eslint-disable-next-line
   }, []);
+
+  // useEffect(() => {
+  //   console.log("reviews : ", reviews);
+  // }, [reviews]);
 
   return course ? (
     <Container>
@@ -70,11 +92,9 @@ export const CourseInfo = () => {
 
       <Typography variant="h6">feedback</Typography>
       <Rate />
-      
+
       <Typography variant="h6">Reviews</Typography>
-      {course.reviews.map((review) => (
-        <Typography> {review}</Typography>
-      ))}
+      <Reviews reviews={reviews} />
     </Container>
   ) : (
     <Container sx={{ mx: "auto", width: 200 }}>
