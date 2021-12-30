@@ -2,7 +2,6 @@ import React from "react";
 import { Progress, Rate, Row, Col } from "antd";
 
 export const RatingStatus = ({ reviews }) => {
-
   return reviews ? (
     <Row>
       <Col span={6}>
@@ -12,14 +11,17 @@ export const RatingStatus = ({ reviews }) => {
           </Row>
 
           <Row justify="center">
-            <h1>{reviews.ratingStatus.rating}</h1>
+            <h1>{reviews.ratingStatus.rating.toFixed(2)}</h1>
           </Row>
         </Col>
       </Col>
       <Col span={18}>
         <Row>
           <Col span={16}>
-            <Progress percent={reviews.ratingStatus.oneStar} size="small" />
+            <Progress
+              percent={reviews.ratingStatus.oneStar.toFixed(2)}
+              size="small"
+            />
           </Col>
           <Col span={1}> </Col>
           <Col span={7}>
@@ -28,7 +30,10 @@ export const RatingStatus = ({ reviews }) => {
         </Row>
         <Row>
           <Col span={16}>
-            <Progress percent={reviews.ratingStatus.towStar} size="small" />
+            <Progress
+              percent={reviews.ratingStatus.towStar.toFixed(2)}
+              size="small"
+            />
           </Col>
           <Col span={1}> </Col>
           <Col span={7}>
@@ -37,7 +42,10 @@ export const RatingStatus = ({ reviews }) => {
         </Row>
         <Row>
           <Col span={16}>
-            <Progress percent={reviews.ratingStatus.threeStar} size="small" />
+            <Progress
+              percent={reviews.ratingStatus.threeStar.toFixed(2)}
+              size="small"
+            />
           </Col>
           <Col span={1}> </Col>
           <Col span={7}>
@@ -46,7 +54,10 @@ export const RatingStatus = ({ reviews }) => {
         </Row>
         <Row>
           <Col span={16}>
-            <Progress percent={reviews.ratingStatus.foreStar} size="small" />
+            <Progress
+              percent={reviews.ratingStatus.foreStar.toFixed(2)}
+              size="small"
+            />
           </Col>
           <Col span={1}> </Col>
           <Col span={7}>
@@ -55,7 +66,10 @@ export const RatingStatus = ({ reviews }) => {
         </Row>
         <Row>
           <Col span={16}>
-            <Progress percent={reviews.ratingStatus.fiveStar} size="small" />
+            <Progress
+              percent={reviews.ratingStatus.fiveStar.toFixed(2)}
+              size="small"
+            />
           </Col>
           <Col span={1}> </Col>
           <Col span={7}>
