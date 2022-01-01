@@ -1,13 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Typography, Button, Avatar, IconButton } from "@mui/material";
+import { Link, Typography, IconButton } from "@mui/material";
 import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
+
+import { Layout, Menu, Breadcrumb, Avatar, Button } from "antd";
 
 import { logout } from "./../../reducers/account";
 
 export const RightSide = () => {
   const { user, avatar } = useSelector((state) => state.account);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -36,13 +40,18 @@ export const RightSide = () => {
     </>
   ) : (
     <>
-      <Link color="inherit" underline="none" href="/register" ml={2}>
+      <Menu theme="dark" mode="horizontal">
+        <Menu.Item onClick={() => navigate("/register")}> Register</Menu.Item>
+        <Menu.Item onClick={() => navigate("/logIn")}> Log in</Menu.Item>
+     
+      </Menu>
+      {/* <Link color="inherit" underline="none" href="/register" ml={2}>
         Register
       </Link>
 
       <Link color="inherit" underline="none" href="/logIn" ml={2}>
         Log in
-      </Link>
+      </Link> */}
     </>
   );
 };

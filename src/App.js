@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
-import { Header } from "./components/Header";
+import { HeaderComponent } from "./components/HeaderComponent";
 import { Home } from "./pages/Home";
 import { CreateCourse } from "./pages/CreateCourse";
 import { CourseSetting } from "./pages/CourseSetting";
@@ -19,7 +19,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Header />
+        <HeaderComponent />
 
         <Routes>
           <Route path="/" element={<Home />} />
