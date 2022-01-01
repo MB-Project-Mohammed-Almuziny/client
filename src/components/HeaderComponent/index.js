@@ -1,29 +1,31 @@
 import React from "react";
-import { AppBar, Typography, Box, Toolbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-import { Layout, Menu, Breadcrumb, Avatar, Button } from "antd";
+import { Layout, Menu } from "antd";
 
-import { LeftSide } from "./LeftSide";
+// import { LeftSide } from "./LeftSide";
 import { RightSide } from "./RightSide";
 
-const { Header, Content, Footer } = Layout;
-
 export const HeaderComponent = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Layout className="layout">
-        <Header
+        <Layout.Header
           style={{
             display: "flex",
             justifyContent: "space-between",
           }}
         >
           <Menu theme="dark" mode="horizontal">
-            <Menu.Item> CoursesSite</Menu.Item>
+            <Menu.Item onClick={() => navigate("/")} key="logo">
+              CoursesSite
+            </Menu.Item>
           </Menu>
 
           <RightSide />
-        </Header>
+        </Layout.Header>
       </Layout>
 
       {/* <Box sx={{ flexGrow: 1 }}>
@@ -44,18 +46,3 @@ export const HeaderComponent = () => {
     </>
   );
 };
-
-{
-  /* <Layout className="layout">
-  <Header>
-    <div className="logo" />
-    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-      <Menu.Item> hallow</Menu.Item>
-      <Menu.Item>
-        {" "}
-        <Avatar />
-      </Menu.Item>
-    </Menu>
-  </Header>
-</Layout>; */
-}

@@ -1,10 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Typography, IconButton } from "@mui/material";
-import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
 
-import { Layout, Menu, Breadcrumb, Avatar, Button } from "antd";
+import { Menu, Avatar, Dropdown } from "antd";
 
 import { logout } from "./../../reducers/account";
 
@@ -14,44 +12,42 @@ export const RightSide = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogOut = () => {
-    dispatch(logout({}));
-  };
+  const menu = (
+    <Menu>
+      <Menu.Item key="/createCourse">
+        <Link to="/createCourse"> create course</Link>
+      </Menu.Item>
+
+      <Menu.Item key="setting">
+        <Link to="/user/setting"> setting</Link>
+      </Menu.Item>
+
+      <Menu.Item onClick={() => dispatch(logout({}))} key="log out">
+        <Link to="/"> log out</Link>
+      </Menu.Item>
+    </Menu>
+  );
 
   return user ? (
-    <>
-      <Link color="inherit" underline="none" href="/createCourse" mr={2}>
-        create course
-      </Link>
-
-      <Typography mr={2}>{user}</Typography>
-
-      <Avatar alt={user} src={avatar} />
-
-      <Link color="inherit" underline="none" href="/user/setting">
-        <IconButton color="inherit">
-          <SettingsApplicationsRoundedIcon />
-        </IconButton>
-      </Link>
-
-      <Button color="inherit" onClick={() => handleLogOut()}>
-        log out
-      </Button>
-    </>
+    <Menu theme="dark" mode="horizontal">
+      <Dropdown overlay={menu}>
+        <a
+          className="ant-dropdown-link"
+          href="#empty"
+          onClick={(e) => e.preventDefault()}
+        >
+          <Avatar src={avatar} />
+        </a>
+      </Dropdown>
+    </Menu>
   ) : (
-    <>
-      <Menu theme="dark" mode="horizontal">
-        <Menu.Item onClick={() => navigate("/register")}> Register</Menu.Item>
-        <Menu.Item onClick={() => navigate("/logIn")}> Log in</Menu.Item>
-     
-      </Menu>
-      {/* <Link color="inherit" underline="none" href="/register" ml={2}>
+    <Menu theme="dark" mode="horizontal">
+      <Menu.Item onClick={() => navigate("/register")} key="register">
         Register
-      </Link>
-
-      <Link color="inherit" underline="none" href="/logIn" ml={2}>
+      </Menu.Item>
+      <Menu.Item onClick={() => navigate("/logIn")} key="log in">
         Log in
-      </Link> */}
-    </>
+      </Menu.Item>
+    </Menu>
   );
 };
