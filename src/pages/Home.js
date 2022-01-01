@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+import { Row } from "antd";
 
 import { CourseCard } from "./../components/CourseCard";
 
@@ -33,16 +34,11 @@ export const Home = () => {
         courses
       </Typography>
 
-      <Grid container spacing={2}>
+      <Row gutter={[24, 24]}>
         {courses.map((course) => (
-          <CourseCard
-            courseId={course._id}
-            title={course.title}
-            creator={course.creator}
-            key={course._id}
-          />
+          <CourseCard course={course} key={course._id} />
         ))}
-      </Grid>
+      </Row>
     </Container>
   );
 };
