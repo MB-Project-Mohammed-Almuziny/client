@@ -7,9 +7,8 @@ import { CourseCard } from "../components/CourseCard";
 
 export const CoursesByCategory = () => {
   const [courses, setCourses] = useState([]);
-  const [category, setCategory] = useState(useParams().category);
 
-  const newCategory = useParams().category;
+  const category = useParams().category;
 
   const getCourses = () => {
     try {
@@ -30,11 +29,6 @@ export const CoursesByCategory = () => {
     getCourses();
     // eslint-disable-next-line
   }, [category]);
-
-  useEffect(() => {
-    setCategory(newCategory);
-    // eslint-disable-next-line
-  }, [useParams().category]);
 
   return (
     <Container>

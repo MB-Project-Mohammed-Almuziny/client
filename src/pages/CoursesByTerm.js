@@ -27,7 +27,6 @@ export const CoursesByTerm = () => {
 
   useEffect(() => {
     getCourses();
-    console.log(1);
     // eslint-disable-next-line
   }, [term]);
 
