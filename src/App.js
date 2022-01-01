@@ -2,8 +2,10 @@ import { Routes, Route } from "react-router";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
-import { Header } from "./components/Header";
+import { HeaderComponent } from "./components/HeaderComponent";
 import { Home } from "./pages/Home";
+import { CoursesByCategory } from "./pages/CoursesByCategory";
+import { CoursesByTerm } from "./pages/CoursesByTerm";
 import { CreateCourse } from "./pages/CreateCourse";
 import { CourseSetting } from "./pages/CourseSetting";
 import { CourseInfo } from "./pages/CourseInfo";
@@ -19,10 +21,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Header />
+        <HeaderComponent />
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/category/:category" element={<CoursesByCategory />} />
+          <Route path="/search/:term" element={<CoursesByTerm />} />
           <Route path="/createCourse" element={<CreateCourse />} />
           <Route path="/course/learn/:courseId" element={<CourseLearn />} />
           <Route path="/course/setting/:courseId" element={<CourseSetting />} />

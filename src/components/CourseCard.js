@@ -1,39 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid, Card, Typography } from "@mui/material";
+import { Card, Col, Typography } from "antd";
 
-export const CourseCard = ({ courseId, title, creator }) => {
+const { Link } = Typography;
+
+export const CourseCard = ({ course }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/course/" + courseId);
-  };
-
-  const handleUserInfo = (e) => {
-    e.preventDefault();
-
-    navigate("/user/" + creator._id);
-  };
-
   return (
-    <Grid item lg={3} md={4} sm={6} xs={12}>
-      <Card>
-        <Typography onClick={handleClick} className="pointer">
-          {title}
-        </Typography>
-
-        <Typography>
-          by:
-          <Typography
-            onClick={handleUserInfo}
-            className="pointer"
-            variant="button"
-            sx={{ textDecoration: "underline", color: "blue" }}
-          >
-            {creator.name}
-          </Typography>
-        </Typography>
+    <Col span={6}>
+      <Card
+        hoverable
+        cover={<img alt="example" src={course.thumbnail} />}
+        onClick={() => navigate("/course/" + course._id)}
+      >
+        <Card.Meta
+          title={course.title}
+          description={
+            <Link href={"/user/" + course.creator._id}>
+              by : {course.creator.name}
+            </Link>
+          }
+        />
       </Card>
-    </Grid>
+    </Col>
   );
 };

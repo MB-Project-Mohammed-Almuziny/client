@@ -2,11 +2,14 @@ import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Grid, Avatar, List, ListItem, Typography } from "@mui/material";
+import { Layout, Menu } from "antd";
+import { InfoCircleFilled, PlusCircleFilled } from "@ant-design/icons";
 
 import { CourseSettingInfo } from "./../components/CourseSettingInfo";
 import { CourseAddSection } from "../components/CourseAddSection";
 import { CourseAddLesson } from "./../components/CourseAddLesson";
+
+const { Sider, Content } = Layout;
 
 const GetPanel = ({ panel, course, getCourseInfo }) => {
   switch (panel) {
@@ -27,11 +30,12 @@ const GetPanel = ({ panel, course, getCourseInfo }) => {
 };
 
 export const CourseSetting = () => {
+  const [collapsed, setCollapsed] = useState(false);
   const [panel, setPanel] = useState("Info");
   const [isCreator, setIsCreator] = useState(false);
   const [course, setCourse] = useState();
 
-  const { user, userId } = useSelector((state) => state.account);
+  const { userId } = useSelector((state) => state.account);
   const { courseId } = useParams();
 
   const getCourseInfo = () => {
@@ -59,44 +63,39 @@ export const CourseSetting = () => {
     // eslint-disable-next-line
   }, [course]);
 
-  return isCreator ? (
-    <Grid container>
-      <Grid item xs={3}>
-        <List
-          sx={{
-            width: "100%",
-            maxWidth: 200,
-            height: "100vh",
-            bgcolor: "background.paper",
-          }}
-        >
-          <Avatar
-            variant="square"
-            alt={user}
-            src={course.thumbnail}
-            sx={{ m: "auto", width: "60%", height: "20%" }}
-          />
+  const menuItems = [
+    { name: "Info", icon: <InfoCircleFilled /> },
+    { name: "Add Section", icon: <PlusCircleFilled /> },
+    { name: "Add Lessons", icon: <PlusCircleFilled /> },
+  ];
 
-          {["Info", "Add Section", "Add Lessons"].map((value) => (
-            <ListItem key={value} disableGutters>
-              <Typography
-                variant="button"
-                className="pointer"
-                onClick={() => setPanel(value)}
-              >
-                {value}
-              </Typography>
-            </ListItem>
+  return isCreator ? (
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={() => setCollapsed(!collapsed)}
+      >
+        <Menu defaultSelectedKeys={panel} mode="inline">
+          {menuItems.map((item) => (
+            <Menu.Item
+              onClick={() => setPanel(item.name)}
+              key={item.name}
+              icon={item.icon}
+            >
+              {item.name}
+            </Menu.Item>
           ))}
-        </List>
-      </Grid>
-      <Grid item xs={9}>
+        </Menu>
+      </Sider>
+
+      <Content>
         <GetPanel panel={panel} course={course} getCourseInfo={getCourseInfo} />
-      </Grid>
-    </Grid>
+      </Content>
+    </Layout>
   ) : (
-    <Typography align="center">
+    <h2 style={{ textAlign: "center" }}>
       you are to the creator of this course
-    </Typography>
+    </h2>
   );
 };

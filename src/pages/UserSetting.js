@@ -1,10 +1,12 @@
 import { React, useState } from "react";
-import { useSelector } from "react-redux";
-import { Grid, Avatar, List, ListItem, Typography } from "@mui/material";
+import { Layout, Menu } from "antd";
+import { InfoCircleFilled, CameraFilled, LockFilled } from "@ant-design/icons";
 
 import { UserSettingInfo } from "./../components/UserSettingInfo";
 import { UserSettingAvatar } from "../components/UserSettingAvatar";
 import { UserSettingPassword } from "../components/UserSettingPassword";
+
+const { Sider, Content } = Layout;
 
 const GetPanel = ({ panel }) => {
   switch (panel) {
@@ -23,39 +25,38 @@ const GetPanel = ({ panel }) => {
 };
 
 export const UserSetting = () => {
+  const [collapsed, setCollapsed] = useState(false);
   const [panel, setPanel] = useState("Info");
 
-  const { user, avatar } = useSelector((state) => state.account);
+  const menuItems = [
+    { name: "Info", icon: <InfoCircleFilled /> },
+    { name: "Avatar", icon: <CameraFilled /> },
+    { name: "Password", icon: <LockFilled /> },
+  ];
 
   return (
-    <Grid container>
-      <Grid item xs={3}>
-        <List
-          sx={{
-            width: "100%",
-            maxWidth: 200,
-            height: "100vh",
-            bgcolor: "background.paper",
-          }}
-        >
-          <Avatar alt={user} src={avatar}  sx={{ m: "auto" }} />
-
-          {["Info", "Avatar", "Password"].map((value) => (
-            <ListItem key={value} disableGutters>
-              <Typography
-                variant="button"
-                className="pointer"
-                onClick={() => setPanel(value)}
-              >
-                {value}
-              </Typography>
-            </ListItem>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={() => setCollapsed(!collapsed)}
+      >
+        <Menu defaultSelectedKeys={panel} mode="inline">
+          {menuItems.map((item) => (
+            <Menu.Item
+              onClick={() => setPanel(item.name)}
+              key={item.name}
+              icon={item.icon}
+            >
+              {item.name}
+            </Menu.Item>
           ))}
-        </List>
-      </Grid>
-      <Grid item xs={9}>
+        </Menu>
+      </Sider>
+
+      <Content>
         <GetPanel panel={panel} />
-      </Grid>
-    </Grid>
+      </Content>
+    </Layout>
   );
 };
