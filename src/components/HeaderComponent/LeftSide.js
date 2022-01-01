@@ -1,25 +1,15 @@
 import React from "react";
-import { Link, TextField, InputAdornment } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
+import { Menu } from "antd";
 
 export const LeftSide = () => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <Link color="inherit" underline="none" href="/" mr={2}>
-        home
-      </Link>
-      <TextField
-        id="search"
-        placeholder="Search..."
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-        variant="outlined"
-      />
-    </>
+    <Menu theme="dark" mode="horizontal">
+      <Menu.Item onClick={() => navigate("/")} key="logo">
+        CoursesSite
+      </Menu.Item>
+    </Menu>
   );
 };
