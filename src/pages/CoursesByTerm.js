@@ -5,16 +5,15 @@ import { Container, Grid, Typography } from "@mui/material";
 
 import { CourseCard } from "../components/CourseCard";
 
-export const CoursesByCategory = () => {
+export const CoursesByTerm = () => {
   const [courses, setCourses] = useState([]);
-  const [category, setCategory] = useState(useParams().category);
 
-  const newCategory = useParams().category;
+  const term = useParams().term;
 
   const getCourses = () => {
     try {
       axios
-        .get(`${process.env.REACT_APP_BASE_URL}/course/category/${category}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/course/search/${term}`)
         .then((result) => {
           setCourses(result.data);
         })
@@ -28,18 +27,14 @@ export const CoursesByCategory = () => {
 
   useEffect(() => {
     getCourses();
+    console.log(1);
     // eslint-disable-next-line
-  }, [category]);
-
-  useEffect(() => {
-    setCategory(newCategory);
-    // eslint-disable-next-line
-  }, [useParams().category]);
+  }, [term]);
 
   return (
     <Container>
       <Typography variant="h3" align="center" my={2}>
-        {category} courses
+        courses with {term} term
       </Typography>
 
       <Grid container spacing={2}>

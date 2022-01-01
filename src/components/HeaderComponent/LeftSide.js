@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Menu, Dropdown, Form, Input } from "antd";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
 
 export const LeftSide = () => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export const LeftSide = () => {
       <Menu.Item onClick={() => navigate("/")} key="logo">
         CoursesSite
       </Menu.Item>
+
       <Dropdown overlay={menu}>
         <a
           className="ant-dropdown-link"
@@ -32,6 +33,12 @@ export const LeftSide = () => {
           Categorys <DownOutlined />
         </a>
       </Dropdown>
+
+      <Input.Search
+        placeholder="input search term"
+        onSearch={(term) => navigate("/search/" + term)}
+        style={{ width: 200, margin: "auto", marginLeft: "20px" }}
+      />
     </Menu>
   );
 };
