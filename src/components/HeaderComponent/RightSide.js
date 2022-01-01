@@ -14,7 +14,7 @@ export const RightSide = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="/createCourse">
+      <Menu.Item key="createCourse">
         <Link to="/createCourse"> create course</Link>
       </Menu.Item>
 
@@ -23,7 +23,7 @@ export const RightSide = () => {
       </Menu.Item>
 
       <Menu.Divider />
-      
+
       <Menu.Item onClick={() => dispatch(logout({}))} key="log out">
         <Link to="/"> log out</Link>
       </Menu.Item>
