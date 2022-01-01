@@ -22,6 +22,8 @@ export const RightSide = () => {
         <Link to="/user/setting"> setting</Link>
       </Menu.Item>
 
+      <Menu.Divider />
+      
       <Menu.Item onClick={() => dispatch(logout({}))} key="log out">
         <Link to="/"> log out</Link>
       </Menu.Item>
