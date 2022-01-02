@@ -12,6 +12,7 @@ import { CourseInfo } from "./pages/CourseInfo";
 import { CourseLearn } from "./pages/CourseLearn";
 import { UserSetting } from "./pages/UserSetting";
 import { UserInfo } from "./pages/UserInfo";
+import { Chats } from "./pages/Chats";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/course/:courseId" element={<CourseInfo />} />
           <Route path="/user/setting" element={<UserSetting />} />
           <Route path="/user/:user_id" element={<UserInfo />} />
+          <Route path="/chats" element={<Chats />} />
           <Route path="/register" element={<Register />} />
           <Route path="/LogIn" element={<Login />} />
         </Routes>
