@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Container, Box, Grid, Avatar, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Row } from "antd";
 
 import { CourseCard } from "./../components/CourseCard";
 
@@ -54,16 +55,11 @@ export const UserInfo = () => {
               created course
             </Typography>
             {userInfo.course[0] ? (
-              <Grid container spacing={2}>
+              <Row gutter={[24, 24]}>
                 {userInfo.course.map((course) => (
-                  <CourseCard
-                    courseId={course._id}
-                    title={course.title}
-                    creator={course.creator}
-                    key={course._id}
-                  />
+                  <CourseCard course={course} key={course._id + "created"} />
                 ))}
-              </Grid>
+              </Row>
             ) : (
               <Typography>this user dont create any course yet</Typography>
             )}
@@ -72,16 +68,11 @@ export const UserInfo = () => {
               enrole course
             </Typography>
             {userInfo.enrole[0] ? (
-              <Grid container spacing={2}>
+              <Row gutter={[24, 24]}>
                 {userInfo.enrole.map((course) => (
-                  <CourseCard
-                    courseId={course._id}
-                    title={course.title}
-                    creator={course.creator}
-                    key={course._id}
-                  />
+                  <CourseCard course={course} key={course._id + "enrole"} />
                 ))}
-              </Grid>
+              </Row>
             ) : (
               <Typography>this user dont create any course yet</Typography>
             )}
