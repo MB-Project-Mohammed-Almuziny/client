@@ -88,7 +88,7 @@ export const CourseLearn = () => {
         )}
       </Sider>
 
-      <Content className="content">
+      <Content className="content_courseLearn">
         <p>{course.title}</p>
 
         <p>
