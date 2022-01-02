@@ -75,8 +75,13 @@ export const Login = () => {
           onFinish={handleSubmit}
         >
           <Form.Item
-            name="Username Or Password"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+            name="Username Or Email"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Username or Email!",
+              },
+            ]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -108,11 +113,11 @@ export const Login = () => {
             Or <Link to="/register">register now! </Link>
           </Form.Item>
 
-          <Form.Item>
+          {/* <Form.Item>
             <a className="login-form-forgot" href="">
               Forgot password
             </a>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </div>
     </Layout.Content>
