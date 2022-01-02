@@ -15,11 +15,17 @@ export const RightSide = () => {
   const menu = (
     <Menu>
       <Menu.Item key="createCourse">
-        <Link to="/createCourse"> create course</Link>
+        <Link to="/createCourse"> create course </Link>
       </Menu.Item>
 
       <Menu.Item key="setting">
-        <Link to="/user/setting"> setting</Link>
+        <Link to="/user/setting"> setting </Link>
+      </Menu.Item>
+
+      <Menu.Divider />
+
+      <Menu.Item key="chats">
+        <Link to="/chats/"> chat </Link>
       </Menu.Item>
 
       <Menu.Divider />

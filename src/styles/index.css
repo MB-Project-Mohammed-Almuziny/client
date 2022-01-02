@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import "antd/dist/antd.css";
-
+@import "react-chat-elements/dist/main.css";
 
 * {
   font-family: "Open Sans", sans-serif;
@@ -13,4 +13,32 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.content {
+  margin: 0 8%;
+}
+
+.content_courseLearn {
+  margin: 0 2%;
+}
+
+.box {
+  background-color: white;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.centering {
+  display: flex;
+  justify-content: center;
+}
+
+.loadingIcon {
+  font-size: 5rem;
+  margin-top: 5rem;
 }

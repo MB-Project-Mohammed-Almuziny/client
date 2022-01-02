@@ -1,15 +1,9 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import {
-  Container,
-  Box,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Form, Input, Button, Layout } from "antd";
+import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 
 export const Register = () => {
   const [name, setName] = useState("");
@@ -18,9 +12,7 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     if (
       password.match(
         // eslint-disable-next-line
@@ -62,50 +54,113 @@ export const Register = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Typography variant="h3" align="center" mb={2}>
-        register
-      </Typography>
-      <Box sx={{ bgcolor: "background.paper", p: 2 }}>
-        <form onSubmit={handleSubmit}>
-          <FormGroup>
-            <TextField
+    // <Container maxWidth="md">
+    //   <Typography variant="h3" align="center" mb={2}>
+    //     register
+    //   </Typography>
+    //   <Box sx={{ bgcolor: "background.paper", p: 2 }}>
+    //     <form onSubmit={handleSubmit}>
+    //       <FormGroup>
+    //         <TextField
+    //           onChange={(e) => setName(e.target.value)}
+    //           fullWidth
+    //           id="userName"
+    //           label="User Name"
+    //           placeholder="User Name"
+    //           margin="normal"
+    //           required
+    //         />
+    //         <TextField
+    //           onChange={(e) => setEmail(e.target.value)}
+    //           fullWidth
+    //           type="email"
+    //           id="email"
+    //           label="email"
+    //           placeholder="Email"
+    //           margin="normal"
+    //           required
+    //         />
+    //         <TextField
+    //           onChange={(e) => setPassword(e.target.value)}
+    //           fullWidth
+    //           type="password"
+    //           id="password"
+    //           label="password"
+    //           placeholder="password"
+    //           margin="normal"
+    //           required
+    //         />
+    //       </FormGroup>
+    //       <Typography align="center" my={2}>
+    //         <Button variant="contained" type="submit">
+    //           register
+    //         </Button>
+    //       </Typography>
+    //     </form>
+    //   </Box>
+    // </Container>
+    <Layout.Content className="content" style={{ minHeight: "100vh" }}>
+      <h1 className="title">register</h1>
+
+      <div className="box">
+        <Form
+          name="normal_login"
+          className="login-form"
+          initialValues={{ remember: true }}
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            name="userName"
+            rules={[{ required: true, message: "Please input your Username!" }]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="userName"
               onChange={(e) => setName(e.target.value)}
-              fullWidth
-              id="userName"
-              label="User Name"
-              placeholder="User Name"
-              margin="normal"
-              required
             />
-            <TextField
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              type="email"
-              id="email"
-              label="email"
+          </Form.Item>
+
+          <Form.Item
+            name="email"
+            rules={[{ required: true, message: "Please input your Email!" }]}
+          >
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Email"
-              margin="normal"
-              required
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <TextField
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
-              id="password"
-              label="password"
-              placeholder="password"
-              margin="normal"
-              required
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-          </FormGroup>
-          <Typography align="center" my={2}>
-            <Button variant="contained" type="submit">
-              register
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Log in
             </Button>
-          </Typography>
-        </form>
-      </Box>
-    </Container>
+            Or <Link to="/register">register now! </Link>
+          </Form.Item>
+
+          {/* <Form.Item>
+            <a className="login-form-forgot" href="">
+              Forgot password
+            </a>
+          </Form.Item> */}
+        </Form>
+      </div>
+    </Layout.Content>
   );
 };

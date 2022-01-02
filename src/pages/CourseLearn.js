@@ -3,10 +3,8 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import axios from "axios";
-import { Container, Typography } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Layout, Menu, Rate } from "antd";
-import { StarOutlined } from "@ant-design/icons";
+import { Layout, Menu, Empty } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { Comments } from "./../components/Comments";
 
@@ -49,7 +47,10 @@ export const CourseLearn = () => {
   }, []);
 
   useEffect(() => {
-    if (course) setLessonContent(course.lessonSections[0].lessons[0].lesson);
+    if (course)
+      if (course.lessonContent)
+        if (course.lessonContent[0].lessons)
+          setLessonContent(course.lessonSections[0].lessons[0].lesson);
   }, [course]);
 
   return course ? (
@@ -60,67 +61,64 @@ export const CourseLearn = () => {
         onCollapse={() => setCollapsed(!collapsed)}
       >
         <div className="logo" />
-        <Menu
-          defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
-          defaultOpenKeys={[course.lessonSections[0]._id]}
-          mode="inline"
-        >
-          {course.lessonSections.map((section) => (
-            <SubMenu key={section._id} title={section.sectionName}>
-              {section.lessons.map((lesson) => (
-                <Menu.Item
-                  onClick={() => setLessonContent(lesson.lesson)}
-                  key={lesson._id}
-                >
-                  {lesson.lessonName}
-                </Menu.Item>
-              ))}
-            </SubMenu>
-          ))}
-        </Menu>
+        {course.lessonSections[0] ? (
+          <Menu
+            defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
+            defaultOpenKeys={[course.lessonSections[0]._id]}
+            mode="inline"
+          >
+            {course.lessonSections.map((section) => (
+              <SubMenu key={section._id} title={section.sectionName}>
+                {section.lessons.map((lesson) => (
+                  <Menu.Item
+                    onClick={() => setLessonContent(lesson.lesson)}
+                    key={lesson._id}
+                  >
+                    {lesson.lessonName}
+                  </Menu.Item>
+                ))}
+              </SubMenu>
+            ))}
+          </Menu>
+        ) : (
+          <Empty
+            theme="dark"
+            description={<span style={{ color: "white" }}> no lesson yet</span>}
+          />
+        )}
       </Sider>
 
-      <Content>
-        <Container>
-          <Typography>{course.title}</Typography>
+      <Content className="content_courseLearn">
+        <p>{course.title}</p>
 
-          <Typography>
-            created by:
-            <Typography
-              onClick={handleUserInfo}
-              className="pointer"
-              variant="button"
-              sx={{ textDecoration: "underline", color: "blue" }}
-            >
-              {course.creator.name}
-            </Typography>
-          </Typography>
-          <hr />
+        <p>
+          created by:
+          <p
+            onClick={handleUserInfo}
+            className="pointer"
+            variant="button"
+            sx={{ textDecoration: "underline", color: "blue" }}
+          >
+            {course.creator.name}
+          </p>
+        </p>
+        <hr />
 
-          <ReactPlayer url={lessonContent} controls={true} width="100%" />
+        <ReactPlayer url={lessonContent} controls={true} width="100%" />
 
-          <Typography variant="h6">Description</Typography>
-          <Typography>{course.description}</Typography>
+        <h1>Description</h1>
+        <p>{course.description}</p>
 
-          <Typography variant="h6">About</Typography>
-          <Typography>{course.about}</Typography>
+        <h1>About</h1>
+        <p>{course.about}</p>
 
-          <Typography variant="h6">feedback</Typography>
-          <Rate character={<StarOutlined />} />
-
-          <Typography variant="h6">Reviews</Typography>
-          {course.reviews.map((review) => (
-            <Typography> {review}</Typography>
-          ))}
-
-          <Typography variant="h6">Comments</Typography>
-          <Comments course={course} getCourseInfo={getCourseInfo} />
-        </Container>
+        <h1>Comments</h1>
+        <Comments course={course} getCourseInfo={getCourseInfo} />
       </Content>
     </Layout>
   ) : (
-    <Container sx={{ mx: "auto", width: 200 }}>
-      <CircularProgress />
-    </Container>
+    <Layout.Content className="content">
+      <LoadingOutlined className="loadingIcon" />
+    </Layout.Content>
   );
 };
