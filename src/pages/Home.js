@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Typography } from "@mui/material";
-import { Row } from "antd";
+import { Layout, Row } from "antd";
 
 import { CourseCard } from "./../components/CourseCard";
 
@@ -29,16 +28,14 @@ export const Home = () => {
   }, []);
 
   return (
-    <Container>
-      <Typography variant="h3" align="center" my={2}>
-        courses
-      </Typography>
+    <Layout.Content className="content">
+      <h1 className="title">courses </h1>
 
       <Row gutter={[24, 24]}>
         {courses.map((course) => (
           <CourseCard course={course} key={course._id} />
         ))}
       </Row>
-    </Container>
+    </Layout.Content>
   );
 };
