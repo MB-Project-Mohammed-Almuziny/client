@@ -2,9 +2,9 @@ import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Container, Box, Grid, Avatar, Typography } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Row } from "antd";
+
+import { Layout, Avatar, Row } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { CourseCard } from "./../components/CourseCard";
 
@@ -37,67 +37,51 @@ export const UserInfo = () => {
   }, []);
 
   return userInfo ? (
-    <Container maxWidth="md">
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <Box>
-            <Typography variant="h3" mb={2}>
-              {userInfo.name}
-            </Typography>
+    <Layout.Content className="content" style={{ minHeight: "100vh" }}>
+      <div className="box">
+        <h1>{userInfo.name}</h1>
+        <Avatar
+          // alt={userInfo.name}
+          src={userInfo.avatar}
+          // sx={{ width: 56, height: 56 }}
+        />
+        <br />
+        <br />
 
-            <Typography variant="h4">Headline</Typography>
-            <Typography mb={2}>{userInfo.headline}</Typography>
+        <h1>Headline</h1>
+        <p>{userInfo.headline}</p>
+        <br />
 
-            <Typography variant="h4">About</Typography>
-            <Typography mb={2}>{userInfo.about}</Typography>
+        <h1>About</h1>
+        <p>{userInfo.about}</p>
+        <br />
 
-            <Typography variant="h4" mt={2}>
-              created course
-            </Typography>
-            {userInfo.course[0] ? (
-              <Row gutter={[24, 24]}>
-                {userInfo.course.map((course) => (
-                  <CourseCard course={course} key={course._id + "created"} />
-                ))}
-              </Row>
-            ) : (
-              <Typography>this user dont create any course yet</Typography>
-            )}
+        <h1>created course</h1>
+        {userInfo.course[0] ? (
+          <Row gutter={[24, 24]}>
+            {userInfo.course.map((course) => (
+              <CourseCard course={course} key={course._id + "created"} />
+            ))}
+          </Row>
+        ) : (
+          <p>this user dont create any course yet</p>
+        )}
 
-            <Typography variant="h4" mt={2}>
-              enrole course
-            </Typography>
-            {userInfo.enrole[0] ? (
-              <Row gutter={[24, 24]}>
-                {userInfo.enrole.map((course) => (
-                  <CourseCard course={course} key={course._id + "enrole"} />
-                ))}
-              </Row>
-            ) : (
-              <Typography>this user dont create any course yet</Typography>
-            )}
-          </Box>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Avatar
-              alt={userInfo.name}
-              src={userInfo.avatar}
-              sx={{ width: 56, height: 56 }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
+        <h1>enrole course</h1>
+        {userInfo.enrole[0] ? (
+          <Row gutter={[24, 24]}>
+            {userInfo.enrole.map((course) => (
+              <CourseCard course={course} key={course._id + "enrole"} />
+            ))}
+          </Row>
+        ) : (
+          <p>this user dont create any course yet</p>
+        )}
+      </div>
+    </Layout.Content>
   ) : (
-    <Container sx={{ mx: "auto", width: 200 }}>
-      <CircularProgress />
-    </Container>
+    <Layout.Content className="centering">
+      <LoadingOutlined  className="loadingIcon"/>
+    </Layout.Content>
   );
 };
