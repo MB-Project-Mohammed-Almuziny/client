@@ -1,16 +1,10 @@
 import { React, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  Container,
-  Box,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Form, Input, Button, Layout } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import { login } from "./../reducers/account";
 
@@ -21,10 +15,8 @@ export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     try {
-      e.preventDefault();
-
       axios
         .post(`${process.env.REACT_APP_BASE_URL}/user/login`, {
           nameOrEmail: email,
@@ -65,57 +57,64 @@ export const Login = () => {
     }
   };
 
-  const handleForgetPass = () => {
-    const email = prompt("Please enter email");
+  // const handleForgetPass = () => {
+  //   const email = prompt("Please enter email");
 
-    axios.post(`${process.env.REACT_APP_BASE_URL}/forgetPass`, { email });
-  };
+  //   axios.post(`${process.env.REACT_APP_BASE_URL}/forgetPass`, { email });
+  // };
 
   return (
-    <Container maxWidth="md">
-      <Typography variant="h3" align="center" mb={2}>
-        log in
-      </Typography>
-      <Box sx={{ bgcolor: "background.paper", p: 2 }}>
-        <form onSubmit={handleSubmit}>
-          <FormGroup>
-            <TextField
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-              id="userNameOrEmail"
-              label="user name or email"
-              placeholder="user name or email"
-              margin="normal"
-              required
-            />
-            <TextField
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
-              type="password"
-              id="password"
-              label="password"
-              placeholder="password"
-              margin="normal"
-              required
-            />
-          </FormGroup>
+    <Layout.Content className="content" style={{ minHeight: "100vh" }}>
+      <h1 className="title">Log In</h1>
 
-          <Typography align="center" my={2}>
-            <Button variant="contained" type="submit">
-              log in
-            </Button>
-          </Typography>
-
-          <Typography
-            onClick={() => handleForgetPass()}
-            variant="button"
-            align="center"
-            style={{ color: "#00adb5" }}
+      <div className="box">
+        <Form
+          name="normal_login"
+          className="login-form"
+          initialValues={{ remember: true }}
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            name="Username Or Password"
+            rules={[{ required: true, message: "Please input your Username!" }]}
           >
-            forget password?
-          </Typography>
-        </form>
-      </Box>
-    </Container>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username Or Password"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Log in
+            </Button>
+            Or <Link to="/register">register now! </Link>
+          </Form.Item>
+
+          <Form.Item>
+            <a className="login-form-forgot" href="">
+              Forgot password
+            </a>
+          </Form.Item>
+        </Form>
+      </div>
+    </Layout.Content>
   );
 };

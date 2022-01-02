@@ -14,3 +14,17 @@ body {
 .pointer {
   cursor: pointer;
 }
+
+.content {
+  margin: 0 20rem;
+}
+
+.box {
+  background-color: white;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
