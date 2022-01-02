@@ -1,10 +1,10 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Container, Typography } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Layout } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
 import { CourseSettingBtn } from "./../components/CourseSettingBtn";
@@ -18,7 +18,6 @@ export const CourseInfo = () => {
 
   const { courseId } = useParams();
   const { userId } = useSelector((state) => state.account);
-  const navigate = useNavigate();
 
   const getCourseInfo = () => {
     try {
@@ -50,49 +49,35 @@ export const CourseInfo = () => {
     }
   };
 
-  const handleUserInfo = (e) => {
-    e.preventDefault();
-
-    navigate("/user/" + course.creator._id);
-  };
-
   useEffect(() => {
     getCourseInfo();
     getReviews();
     // eslint-disable-next-line
   }, []);
 
-
   return course ? (
-    <Container>
+    <Layout.Content className="content" style={{ minHeight: "100vh" }}>
       <EnroleOrLearnBtn />
       <CourseSettingBtn courseId={course._id} creator={course.creator} />
 
-      <Typography>{course.title}</Typography>
+      <p>{course.title}</p>
 
-      <Typography>
+      <p>
         created by:
-        <Typography
-          onClick={handleUserInfo}
-          className="pointer"
-          variant="button"
-          sx={{ textDecoration: "underline", color: "blue" }}
-        >
-          {course.creator.name}
-        </Typography>
-      </Typography>
+        <Link to={`/user/${course.creator._id}`}>{course.creator.name}</Link>
+      </p>
       <hr />
 
-      <Typography variant="h6">Description</Typography>
-      <Typography>{course.description}</Typography>
+      <h1>Description</h1>
+      <p>{course.description}</p>
 
-      <Typography variant="h6">About</Typography>
-      <Typography>{course.about}</Typography>
+      <h1>About</h1>
+      <p>{course.about}</p>
 
-      <Typography variant="h6">rating status</Typography>
+      <h1>rating status</h1>
       {reviews && reviews.result[0] && <RatingStatus reviews={reviews} />}
 
-      <Typography variant="h6">Reviews</Typography>
+      <h1>Reviews</h1>
       {userId && (
         <UserReview
           creator={userId}
@@ -101,10 +86,10 @@ export const CourseInfo = () => {
         />
       )}
       {reviews && reviews.result[0] && <Reviews reviews={reviews} />}
-    </Container>
+    </Layout.Content>
   ) : (
-    <Container sx={{ mx: "auto", width: 200 }}>
-      <CircularProgress />
-    </Container>
+    <Layout.Content className="content">
+      <LoadingOutlined className="loadingIcon" />
+    </Layout.Content>
   );
 };
