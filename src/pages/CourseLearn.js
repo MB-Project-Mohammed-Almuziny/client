@@ -5,7 +5,7 @@ import ReactPlayer from "react-player";
 import axios from "axios";
 import { Container, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Layout, Menu, Rate } from "antd";
+import { Layout, Menu, Rate, Empty } from "antd";
 import { StarOutlined } from "@ant-design/icons";
 
 import { Comments } from "./../components/Comments";
@@ -49,7 +49,10 @@ export const CourseLearn = () => {
   }, []);
 
   useEffect(() => {
-    if (course) setLessonContent(course.lessonSections[0].lessons[0].lesson);
+    if (course)
+      if (course.lessonContent)
+        if (course.lessonContent[0].lessons)
+          setLessonContent(course.lessonSections[0].lessons[0].lesson);
   }, [course]);
 
   return course ? (
@@ -60,24 +63,31 @@ export const CourseLearn = () => {
         onCollapse={() => setCollapsed(!collapsed)}
       >
         <div className="logo" />
-        <Menu
-          defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
-          defaultOpenKeys={[course.lessonSections[0]._id]}
-          mode="inline"
-        >
-          {course.lessonSections.map((section) => (
-            <SubMenu key={section._id} title={section.sectionName}>
-              {section.lessons.map((lesson) => (
-                <Menu.Item
-                  onClick={() => setLessonContent(lesson.lesson)}
-                  key={lesson._id}
-                >
-                  {lesson.lessonName}
-                </Menu.Item>
-              ))}
-            </SubMenu>
-          ))}
-        </Menu>
+        {course.lessonSections[0] ? (
+          <Menu
+            defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
+            defaultOpenKeys={[course.lessonSections[0]._id]}
+            mode="inline"
+          >
+            {course.lessonSections.map((section) => (
+              <SubMenu key={section._id} title={section.sectionName}>
+                {section.lessons.map((lesson) => (
+                  <Menu.Item
+                    onClick={() => setLessonContent(lesson.lesson)}
+                    key={lesson._id}
+                  >
+                    {lesson.lessonName}
+                  </Menu.Item>
+                ))}
+              </SubMenu>
+            ))}
+          </Menu>
+        ) : (
+          <Empty
+            theme="dark"
+            description={<span style={{ color: "white" }}> no lesson yet</span>}
+          />
+        )}
       </Sider>
 
       <Content>
