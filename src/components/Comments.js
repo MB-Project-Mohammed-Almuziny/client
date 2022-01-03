@@ -5,6 +5,7 @@ import { Comment, List } from "antd";
 import { AddComment } from "./AddComment";
 import { AddReply } from "./AddReply";
 import { Replys } from "./Replys";
+import { BlockCommentSpan } from "./BlockCommentSpan";
 
 export const Comments = ({ course, getCourseInfo }) => {
   const [showReplyForm, setShowReplyForm] = useState(
@@ -37,6 +38,10 @@ export const Comments = ({ course, getCourseInfo }) => {
                   >
                     Reply to
                   </span>,
+                  <BlockCommentSpan
+                    commentId={comment._id}
+                    getCourseInfo={getCourseInfo}
+                  />,
                 ]}
                 author={comment.creator.name}
                 avatar={comment.creator.avatar}
