@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { Routes, Route } from "react-router";
-import io from "socket.io-client";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -20,19 +18,7 @@ import { Login } from "./pages/Login";
 
 import { theme } from "./styles/muiThemes";
 
-let socket;
-let CONNECTION_PORT = process.env.REACT_APP_BASE_URL;
-
 function App() {
-  const connectRoom = () => {
-    socket.emit("join_room", { userName: "user", room: "roomid " });
-  };
-
-  useEffect(() => {
-    socket = io(CONNECTION_PORT);
-    connectRoom();
-  }, [CONNECTION_PORT]);
-
   return (
     <ThemeProvider theme={theme}>
       <Box>
