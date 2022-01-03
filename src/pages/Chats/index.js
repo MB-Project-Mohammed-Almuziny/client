@@ -1,11 +1,10 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import { Layout, Menu, Avatar, Form, Input, Button, Row, Col } from "antd";
 import "./index.css";
-
-// import { MessageBox, ChatItem, MessageList } from "react-chat-elements";
 
 const { Sider, Content } = Layout;
 
@@ -21,7 +20,9 @@ export const Chats = () => {
 
   const { user, userId, token } = useSelector((state) => state.account);
 
-  // const message = useRef(1);
+  let anotherUser;
+  const { state } = useLocation();
+  if (state) anotherUser = state.anotherUser;
 
   const getUserChats = () => {
     try {
@@ -31,6 +32,16 @@ export const Chats = () => {
         })
         .then((result) => {
           setChats(result.data);
+
+          if (anotherUser) {
+            const targetUser = result.data.find((element) => {
+              if (element.user1._id === userId)
+                return element.user2._id === anotherUser;
+              else return element.user1._id === anotherUser;
+            });
+
+            setChatIndex(result.data.indexOf(targetUser));
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -71,18 +82,12 @@ export const Chats = () => {
 
   useEffect(() => {
     getUserChats();
+    // eslint-disable-next-line
   }, []);
-
-  // useEffect(() => {
-  //   console.log("chats :", chats);
-  // }, [chats]);
-
-  // useEffect(() => {
-  //   console.log("index : " + chatIndex);
-  // }, [chatIndex]);
 
   useEffect(() => {
     socket = io(CONNECTION_PORT);
+    // eslint-disable-next-line
   }, [CONNECTION_PORT]);
 
   useEffect(() => {
