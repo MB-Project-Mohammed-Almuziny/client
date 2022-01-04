@@ -8,6 +8,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 import { EnroleOrLearnBtn } from "./../components/EnroleOrLearnBtn";
 import { CourseSettingBtn } from "./../components/CourseSettingBtn";
+import { BlockCourseBtn } from "./../components/BlockCourseBtn";
 import { RatingStatus } from "./../components/RatingStatus";
 import { Reviews } from "./../components/Reviews";
 import { UserReview } from "./../components/UserReview";
@@ -59,6 +60,7 @@ export const CourseInfo = () => {
     <Layout.Content className="content" style={{ minHeight: "100vh" }}>
       <EnroleOrLearnBtn />
       <CourseSettingBtn courseId={course._id} creator={course.creator} />
+      <BlockCourseBtn courseId={course._id} />
 
       <p>{course.title}</p>
 
