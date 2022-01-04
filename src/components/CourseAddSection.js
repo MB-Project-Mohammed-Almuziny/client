@@ -13,7 +13,6 @@ import {
 
 export const CourseAddSection = ({ course, getCourseInfo }) => {
   const [newSection, setNewSection] = useState();
-  console.log(course);
 
   const { token } = useSelector((state) => state.account);
 
