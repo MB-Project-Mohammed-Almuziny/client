@@ -2,14 +2,7 @@ import { React, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import {
-  Container,
-  Box,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Layout, Form, Input, Button } from "antd";
 
 export const ResetPassword = () => {
   const [password1, setPassword1] = useState("");
@@ -20,8 +13,6 @@ export const ResetPassword = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
     if (password1 !== password2) {
       Swal.fire({
         position: "top",
@@ -63,42 +54,52 @@ export const ResetPassword = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Typography variant="h3" align="center" mb={2}>
-        Reset password
-      </Typography>
-      <Box sx={{ bgcolor: "background.paper", p: 2 }}>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <FormGroup>
-            <TextField
-              onChange={(e) => setPassword1(e.target.value)}
-              fullWidth
-              type="password"
-              id="newPass"
-              label="new password"
-              placeholder="new password"
-              margin="normal"
-              required
-            />
-            <TextField
-              onChange={(e) => setPassword2(e.target.value)}
-              fullWidth
-              type="password"
-              id="checkpassword"
-              label="check password"
-              placeholder="check password"
-              margin="normal"
-              required
-            />
-          </FormGroup>
+    <Layout.Content className="content">
+      <h1 className="title">Reset password</h1>
 
-          <Typography align="center" my={2}>
-            <Button variant="contained" type="submit">
-              submit
+      <div className="box">
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+          <Form.Item
+            name="newPassword"
+            rules={[
+              {
+                required: true,
+                message: "Please input your new pasword",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="new password"
+              onChange={(e) => setPassword1(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="newPassword2"
+            rules={[
+              {
+                required: true,
+                message: "Please input your new pasword to check",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="new password check"
+              onChange={(e) => setPassword2(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              reset
             </Button>
-          </Typography>
-        </form>
-      </Box>
-    </Container>
+          </Form.Item>
+        </Form>
+      </div>
+    </Layout.Content>
   );
 };
