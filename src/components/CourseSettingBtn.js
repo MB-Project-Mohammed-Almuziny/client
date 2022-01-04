@@ -11,6 +11,7 @@ export const CourseSettingBtn = ({ courseId, creator }) => {
 
   useEffect(() => {
     userId === creator._id && setIsCreator(true);
+    // eslint-disable-next-line
   }, []);
 
   return isCreator ? (

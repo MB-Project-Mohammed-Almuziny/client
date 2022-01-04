@@ -1,6 +1,5 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Comment, List } from "antd";
-// import moment from 'moment';
 
 import { AddComment } from "./AddComment";
 import { AddReply } from "./AddReply";

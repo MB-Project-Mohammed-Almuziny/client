@@ -68,6 +68,7 @@ export const EnroleOrLearnBtn = () => {
 
   useEffect(() => {
     checkIsStudent();
+    // eslint-disable-next-line
   }, []);
 
   return isStudent ? (

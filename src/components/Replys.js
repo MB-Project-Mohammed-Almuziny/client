@@ -1,6 +1,5 @@
 import React from "react";
 import { Comment, List } from "antd";
-// import moment from 'moment';
 
 import { BlockReplySpan } from "./BlockReplySpan";
 
