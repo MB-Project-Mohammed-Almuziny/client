@@ -41,7 +41,7 @@ export const UserSetting = () => {
         collapsed={collapsed}
         onCollapse={() => setCollapsed(!collapsed)}
       >
-        <Menu defaultSelectedKeys={panel} mode="inline">
+        <Menu defaultSelectedKeys={panel} theme="dark" mode="inline">
           {menuItems.map((item) => (
             <Menu.Item
               onClick={() => setPanel(item.name)}
@@ -54,7 +54,7 @@ export const UserSetting = () => {
         </Menu>
       </Sider>
 
-      <Content>
+      <Content className="content">
         <GetPanel panel={panel} />
       </Content>
     </Layout>
