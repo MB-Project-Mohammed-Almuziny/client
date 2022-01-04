@@ -2,15 +2,7 @@ import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  Container,
-  Box,
-  Card,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Form, Input, Button } from "antd";
 
 export const CourseSettingInfo = ({ course, getCourseInfo }) => {
   const [title, setTitle] = useState("");
@@ -21,8 +13,6 @@ export const CourseSettingInfo = ({ course, getCourseInfo }) => {
 
   const handleSubmit = (e) => {
     try {
-      e.preventDefault();
-
       axios
         .put(
           `${process.env.REACT_APP_BASE_URL}/course/` + course._id,
@@ -40,11 +30,6 @@ export const CourseSettingInfo = ({ course, getCourseInfo }) => {
             timer: 1500,
           });
 
-          e.target.title.value =
-            e.target.about.value =
-            e.target.description.value =
-              "";
-
           getCourseInfo();
         })
         .catch((err) => {
@@ -55,54 +40,43 @@ export const CourseSettingInfo = ({ course, getCourseInfo }) => {
     }
   };
   return (
-    <Container>
-      <Typography variant="h3" align="center" mb={2}>
-        {course.title} course information
-      </Typography>
+    <>
+      <h1 className="title">course information</h1>
 
-      <Card>
-        <Box p={2}>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <FormGroup>
-              <TextField
-                onChange={(e) => setTitle(e.target.value)}
-                fullWidth
-                id="title"
-                label="title"
-                InputLabelProps={{ shrink: true }}
-                placeholder={course.title}
-                margin="normal"
-              />
+      <div className="box">
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+          <Form.Item name="title">
+            <Input
+              placeholder={course.title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Form.Item>
 
-              <TextField
-                onChange={(e) => setAbout(e.target.value)}
-                fullWidth
-                id="about"
-                label="about"
-                InputLabelProps={{ shrink: true }}
-                placeholder={course.about}
-                margin="normal"
-              />
+          <Form.Item name="about">
+            <Input
+              placeholder={course.about}
+              onChange={(e) => setAbout(e.target.value)}
+            />
+          </Form.Item>
 
-              <TextField
-                onChange={(e) => setDescription(e.target.value)}
-                fullWidth
-                id="description"
-                label="description"
-                InputLabelProps={{ shrink: true }}
-                placeholder={course.description}
-                margin="normal"
-              />
-            </FormGroup>
+          <Form.Item name="description">
+            <Input
+              placeholder={course.description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Item>
 
-            <Typography align="center" my={2}>
-              <Button variant="contained" type="submit">
-                save change
-              </Button>
-            </Typography>
-          </form>
-        </Box>
-      </Card>
-    </Container>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              change
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </>
   );
 };
