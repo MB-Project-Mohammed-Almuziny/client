@@ -31,7 +31,10 @@ export const Comments = ({ course, getCourseInfo }) => {
                 avatar={comment.creator.avatar}
                 content={comment.description}
               >
-                <Replys replys={comment.replays} />
+                <Replys
+                  replys={comment.replays}
+                  getCourseInfo={getCourseInfo}
+                />
 
                 <AddReply
                   commentId={comment._id}
