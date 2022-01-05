@@ -16,6 +16,7 @@ import { Chats } from "./pages/Chats";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { ResetPassword } from "./pages/ResetPassword";
+import { Page404 } from "./pages/Page404";
 
 import { theme } from "./styles/muiThemes";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/LogIn" element={<Login />} />
           <Route path="/Resetpass/:token" element={<ResetPassword />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </Box>
     </ThemeProvider>
