@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import axios from "axios";
 import { Layout, Menu, Empty } from "antd";
@@ -18,8 +18,6 @@ export const CourseLearn = () => {
 
   const { courseId } = useParams();
 
-  const navigate = useNavigate();
-
   const getCourseInfo = () => {
     try {
       axios
@@ -33,12 +31,6 @@ export const CourseLearn = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleUserInfo = (e) => {
-    e.preventDefault();
-
-    navigate("/user/" + course.creator._id);
   };
 
   useEffect(() => {
@@ -92,17 +84,11 @@ export const CourseLearn = () => {
       <Content className="content_courseLearn">
         <h1>{course.title}</h1>
 
-        <h1>
-          created by:
-          <h1
-            onClick={handleUserInfo}
-            className="pointer"
-            variant="button"
-            sx={{ textDecoration: "underline", color: "blue" }}
-          >
-            {course.creator.name}
-          </h1>
-        </h1>
+        <h2>
+          created by :{" "}
+          <Link to={`/user/${course.creator._id}`}>{course.creator.name}</Link>
+        </h2>
+
         <hr />
 
         <ReactPlayer url={lessonContent} controls={true} width="100%" />

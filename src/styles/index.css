@@ -54,6 +54,12 @@ body {
   height: 18vh;
 }
 
+.thumbnail {
+  width: 100%;
+  height: 50vh;
+  margin-top: 2rem;
+}
+
 .courseInfoHeader {
   display: flex;
   justify-content: space-between;

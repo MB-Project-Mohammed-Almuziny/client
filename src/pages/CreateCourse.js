@@ -89,7 +89,7 @@ export const CreateCourse = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your avatar",
+                message: "Please input your course thumbnail ",
               },
             ]}
           >
@@ -103,7 +103,9 @@ export const CreateCourse = () => {
                 e.file.status === "done" && setThumbnail(e.file.originFileObj)
               }
             >
-              <Button icon={<UploadOutlined />}>Click to upload</Button>
+              <Button icon={<UploadOutlined />}>
+                Click to upload thumbnail
+              </Button>
             </Upload>
           </Form.Item>
 

@@ -58,16 +58,22 @@ export const CourseInfo = () => {
 
   return course ? (
     <Layout.Content className="content" style={{ minHeight: "100vh" }}>
+      <img
+        className="thumbnail"
+        src={course.thumbnail}
+        alt={course.title + " thumbnail"}
+      />
+
       <div className="courseInfoHeader">
         <div>
           <h1>{course.title}</h1>
 
-          <h1>
-            created by:
+          <h2>
+            created by :{" "}
             <Link to={`/user/${course.creator._id}`}>
               {course.creator.name}
             </Link>
-          </h1>
+          </h2>
         </div>
 
         <div>
