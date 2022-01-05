@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
-import { Layout, Menu, Avatar, Form, Input, Button, Row, Col } from "antd";
+import { Layout, Menu, Avatar, Form, Input, Button } from "antd";
 import "./index.css";
 
 const { Sider, Content } = Layout;
@@ -183,25 +183,20 @@ export const Chats = () => {
                 className="form"
                 onFinish={(e) => sendMessage(e, chats[chatIndex]._id)}
               >
-                <Row>
-                  <Col span={21}>
-                    <Form.Item
-                      name="message"
-                      noStyle
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input a message",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col span={1}>
-                    <Button>send</Button>
-                  </Col>
-                </Row>
+                <Form.Item
+                  name="message"
+                  noStyle
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input a message",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+
+                <Button>send</Button>
               </Form>
             </div>
           </div>

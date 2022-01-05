@@ -76,5 +76,6 @@
 }
 
 .form {
-  margin: 1% 2% 0;
+  display: flex;
+  padding: 1% 2%;
 }
