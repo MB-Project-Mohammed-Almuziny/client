@@ -93,7 +93,7 @@ export const UserSettingAvatar = () => {
       <div className="box">
         <Avatar className="avatarImg" src={avatar} size={100} />
 
-        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+        <Form onFinish={handleSubmit}>
           <Form.Item
             name="user avatar"
             rules={[
@@ -104,7 +104,7 @@ export const UserSettingAvatar = () => {
             ]}
           >
             <Upload
-              name="logo"
+              name="avatar"
               method="GET"
               action=""
               listType="picture"
