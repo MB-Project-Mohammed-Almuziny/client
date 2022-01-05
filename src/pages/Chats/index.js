@@ -131,7 +131,7 @@ export const Chats = () => {
           <div className="chatBorder">
             <div className="contentHeader">
               <Avatar
-                size={50}
+                className="avatar"
                 src={
                   chats[chatIndex].user1._id === userId
                     ? chats[chatIndex].user2.avatar
@@ -146,7 +146,7 @@ export const Chats = () => {
             </div>
             <div className="roomContainer">
               {messages.map((message) => (
-                <div>
+                <div key={message._id}>
                   <div
                     className={
                       message.sender === userId
@@ -156,7 +156,7 @@ export const Chats = () => {
                   >
                     {message.sender !== userId && (
                       <Avatar
-                        size={50}
+                        className="avatar"
                         src={
                           chats[chatIndex].user1._id === userId
                             ? chats[chatIndex].user2.avatar
