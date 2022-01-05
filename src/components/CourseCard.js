@@ -11,7 +11,13 @@ export const CourseCard = ({ course }) => {
     <Col span={6}>
       <Card
         hoverable
-        cover={<img alt="example" src={course.thumbnail} />}
+        cover={
+          <img
+            className="courseCardImg"
+            alt={course.title}
+            src={course.thumbnail}
+          />
+        }
         onClick={() => navigate("/course/" + course._id)}
       >
         <Card.Meta

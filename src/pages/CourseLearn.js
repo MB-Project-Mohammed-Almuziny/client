@@ -65,6 +65,7 @@ export const CourseLearn = () => {
           <Menu
             defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
             defaultOpenKeys={[course.lessonSections[0]._id]}
+            theme="dark"
             mode="inline"
           >
             {course.lessonSections.map((section) => (
@@ -89,19 +90,19 @@ export const CourseLearn = () => {
       </Sider>
 
       <Content className="content_courseLearn">
-        <p>{course.title}</p>
+        <h1>{course.title}</h1>
 
-        <p>
+        <h1>
           created by:
-          <p
+          <h1
             onClick={handleUserInfo}
             className="pointer"
             variant="button"
             sx={{ textDecoration: "underline", color: "blue" }}
           >
             {course.creator.name}
-          </p>
-        </p>
+          </h1>
+        </h1>
         <hr />
 
         <ReactPlayer url={lessonContent} controls={true} width="100%" />
