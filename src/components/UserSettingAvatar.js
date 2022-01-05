@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { TextField } from "@mui/material";
 import { Form, Upload, Button, Avatar } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
@@ -20,7 +19,7 @@ export const UserSettingAvatar = () => {
 
   const handleSubmit = (e) => {
     if (newAvatar.type.split("/")[0] === "image") {
-      const uploadImg = storage.ref(`images/${newAvatar.name}`).put(newAvatar);
+      const uploadImg = storage.ref(`images/${userId}_avatar`).put(newAvatar);
       uploadImg.on(
         "state_changed",
         (snapshot) => {
@@ -35,7 +34,7 @@ export const UserSettingAvatar = () => {
         () => {
           storage
             .ref("images")
-            .child(newAvatar.name)
+            .child(`${userId}_avatar`)
             .getDownloadURL()
             .then((url) => {
               setNewAvatarUrl(url);
@@ -87,11 +86,6 @@ export const UserSettingAvatar = () => {
     // eslint-disable-next-line
   }, [newAvatarUrl]);
 
-  useEffect(() => {
-    console.log(newAvatar);
-    // eslint-disable-next-line
-  }, [newAvatar]);
-
   return (
     <>
       <h1 className="title">your avatar</h1>
@@ -101,11 +95,11 @@ export const UserSettingAvatar = () => {
 
         <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
           <Form.Item
-            name="LessonName"
+            name="user avatar"
             rules={[
               {
                 required: true,
-                message: "Please input your file",
+                message: "Please input your avatar",
               },
             ]}
           >
@@ -115,22 +109,13 @@ export const UserSettingAvatar = () => {
               action=""
               listType="picture"
               maxCount={1}
-              onChange={(e) => setNewAvatar(e.fileList[0])}
+              onChange={(e) =>
+                e.file.status === "done" && setNewAvatar(e.file.originFileObj)
+              }
             >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>
-
-          <TextField
-            onChange={(e) => setNewAvatar(e.target.files[0])}
-            fullWidth
-            type="file"
-            id="newAvatar"
-            label="newAvatar"
-            placeholder="newAvatar"
-            InputLabelProps={{ shrink: true }}
-            margin="normal"
-          />
 
           <Form.Item>
             <Button

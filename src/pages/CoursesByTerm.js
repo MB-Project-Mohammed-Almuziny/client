@@ -32,7 +32,7 @@ export const CoursesByTerm = () => {
 
   return (
     <Layout.Content className="content">
-      <h1 className="title">courses with {term} term</h1>
+      <h1 className="title">Search result for "{term}"</h1>
 
       <Row gutter={[24, 24]}>
         {courses.map((course) => (
