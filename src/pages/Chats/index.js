@@ -126,9 +126,9 @@ export const Chats = () => {
           ))}
         </Menu>
       </Sider>
-      <Content className="content">
+      <Content className="content_chat">
         {chats[chatIndex] ? (
-          <>
+          <div className="chatBorder">
             <div className="contentHeader">
               <Avatar
                 size={50}
@@ -154,6 +154,17 @@ export const Chats = () => {
                         : "messageBoxLeft"
                     }
                   >
+                    {message.sender !== userId && (
+                      <Avatar
+                        size={50}
+                        src={
+                          chats[chatIndex].user1._id === userId
+                            ? chats[chatIndex].user2.avatar
+                            : chats[chatIndex].user1.avatar
+                        }
+                      />
+                    )}
+
                     <p
                       className={
                         message.sender === userId ? "textRight" : "textLeft"
@@ -173,7 +184,7 @@ export const Chats = () => {
                 onFinish={(e) => sendMessage(e, chats[chatIndex]._id)}
               >
                 <Row>
-                  <Col span={23}>
+                  <Col span={21}>
                     <Form.Item
                       name="message"
                       noStyle
@@ -193,7 +204,7 @@ export const Chats = () => {
                 </Row>
               </Form>
             </div>
-          </>
+          </div>
         ) : (
           <> </>
         )}

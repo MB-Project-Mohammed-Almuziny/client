@@ -1,13 +1,14 @@
 import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Layout, Row } from "antd";
+import { Layout, Input, Row } from "antd";
 
 import { CourseCard } from "../components/CourseCard";
 
 export const CoursesByTerm = () => {
   const [courses, setCourses] = useState([]);
 
+  const navigate = useNavigate();
   const term = useParams().term;
 
   const getCourses = () => {
@@ -33,6 +34,12 @@ export const CoursesByTerm = () => {
   return (
     <Layout.Content className="content">
       <h1 className="title">Search result for "{term}"</h1>
+
+      <Input.Search
+        className="searchForm"
+        placeholder="input search term"
+        onSearch={(term) => navigate("/search/" + term)}
+      />
 
       <Row gutter={[24, 24]}>
         {courses.map((course) => (

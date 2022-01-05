@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, Dropdown, Input } from "antd";
+import { Menu, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
 export const LeftSide = () => {
@@ -33,12 +33,6 @@ export const LeftSide = () => {
           Categorys <DownOutlined />
         </a>
       </Dropdown>
-
-      <Input.Search
-        placeholder="input search term"
-        onSearch={(term) => navigate("/search/" + term)}
-        style={{ width: 200, margin: "auto", marginLeft: "20px" }}
-      />
     </Menu>
   );
 };

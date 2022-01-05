@@ -20,6 +20,11 @@ body {
   padding: 0 8%;
 }
 
+.searchForm {
+  width: 200px;
+  margin-bottom: 1rem;
+}
+
 .content_courseLearn {
   background-color: #c0b6b6;
   padding: 0 2%;
