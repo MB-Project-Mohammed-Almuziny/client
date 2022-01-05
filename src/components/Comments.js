@@ -1,6 +1,5 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Comment, List } from "antd";
-// import moment from 'moment';
 
 import { AddComment } from "./AddComment";
 import { AddReply } from "./AddReply";
@@ -31,7 +30,10 @@ export const Comments = ({ course, getCourseInfo }) => {
                 avatar={comment.creator.avatar}
                 content={comment.description}
               >
-                <Replys replys={comment.replays} />
+                <Replys
+                  replys={comment.replays}
+                  getCourseInfo={getCourseInfo}
+                />
 
                 <AddReply
                   commentId={comment._id}

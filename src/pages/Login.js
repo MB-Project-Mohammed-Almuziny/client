@@ -57,11 +57,11 @@ export const Login = () => {
     }
   };
 
-  // const handleForgetPass = () => {
-  //   const email = prompt("Please enter email");
+  const handleForgetPass = () => {
+    const email = prompt("Please enter email");
 
-  //   axios.post(`${process.env.REACT_APP_BASE_URL}/forgetPass`, { email });
-  // };
+    axios.post(`${process.env.REACT_APP_BASE_URL}/user/forgetPass`, { email });
+  };
 
   return (
     <Layout.Content className="content" style={{ minHeight: "100vh" }}>
@@ -113,11 +113,11 @@ export const Login = () => {
             Or <Link to="/register">register now! </Link>
           </Form.Item>
 
-          {/* <Form.Item>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </Form.Item> */}
+          <Form.Item>
+            <p className="login-form-forgot" onChange={handleForgetPass}>
+              Forgot password?
+            </p>
+          </Form.Item>
         </Form>
       </div>
     </Layout.Content>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, Dropdown, Form, Input } from "antd";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { Menu, Dropdown, Input } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 export const LeftSide = () => {
   const navigate = useNavigate();

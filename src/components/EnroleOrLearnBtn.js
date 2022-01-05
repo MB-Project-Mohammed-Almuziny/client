@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import { Button } from "antd";
 
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -68,18 +68,14 @@ export const EnroleOrLearnBtn = () => {
 
   useEffect(() => {
     checkIsStudent();
+    // eslint-disable-next-line
   }, []);
 
   return isStudent ? (
-    <Button
-      onClick={() => navigate("/course/learn/" + courseId)}
-      variant="contained"
-    >
+    <Button onClick={() => navigate("/course/learn/" + courseId)}>
       Go To Course
     </Button>
   ) : (
-    <Button onClick={handleEnrole} variant="contained">
-      Enrole now
-    </Button>
+    <Button onClick={handleEnrole}>Enrole now</Button>
   );
 };

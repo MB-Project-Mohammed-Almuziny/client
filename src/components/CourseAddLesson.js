@@ -2,17 +2,9 @@ import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  Container,
-  Box,
-  Card,
-  Select,
-  MenuItem,
-  TextField,
-  Typography,
-  Button,
-  LinearProgress,
-} from "@mui/material";
+import { TextField } from "@mui/material";
+import { Select, Form, Input, Upload, Button, Progress } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 import { storage } from "./../utils/firebaseConfig";
 
@@ -26,7 +18,7 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
   const { token } = useSelector((state) => state.account);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (lesson.type.split("/")[0] === "video") {
       const uploadImg = storage.ref(`videos/${lesson.name}`).put(lesson);
@@ -49,7 +41,7 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
             .getDownloadURL()
             .then((url) => {
               setLessonUrl(url);
-              e.target.lesson.value = "";
+              // e.target.lesson.value = "";
             });
         }
       );
@@ -90,10 +82,10 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
           setUploadProgress(0);
         })
         .catch((err) => {
-          console.error(err + "");;
+          console.error(err + "");
         });
     } catch (err) {
-      console.error(err + "");;
+      console.error(err + "");
     }
   };
 
@@ -102,69 +94,99 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
     // eslint-disable-next-line
   }, [lessonUrl]);
 
-  return (
-    <Container>
-      <Typography variant="h3" align="center" mb={2}>
-        add lesson to your course
-      </Typography>
+  useEffect(() => {
+    console.log("lesson :", lesson);
+    // eslint-disable-next-line
+  }, [lesson]);
 
-      <Card>
+  return (
+    <>
+      <h1 className="title">Log In</h1>
+
+      <div className="box">
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={sectionIndex}
-          label="sectionIndex"
-          onChange={(e) => setSectionIndex(e.target.value)}
+          showSearch
+          placeholder="Select a person"
+          optionFilterProp="children"
+          onChange={(val) => setSectionIndex(val)}
         >
           {course.lessonSections.map((section, i) => (
-            <MenuItem value={i} key={section._id}>
+            <Select.Option value={i} key={section._id}>
               section {i + 1}: {section.sectionName}
-            </MenuItem>
+            </Select.Option>
           ))}
         </Select>
 
-        <Box p={2}>
-          {course.lessonSections[Number(sectionIndex)].lessons.map(
-            (lesson, i) => (
-              <Typography key={lesson._id}>
-                lesson {i + 1}: {lesson.lessonName}
-              </Typography>
-            )
-          )}
+        {course.lessonSections[Number(sectionIndex)].lessons.map(
+          (lesson, i) => (
+            <p key={lesson._id}>
+              lesson {i + 1}: {lesson.lessonName}
+            </p>
+          )
+        )}
 
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <TextField
+        <br />
+
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+          <Form.Item
+            name="LessonName"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Username or Email!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="lesson name"
               onChange={(e) => setLessonName(e.target.value)}
-              fullWidth
-              id="lessonName"
-              label="lesson name"
-              placeholder="lesson nanme"
-              margin="normal"
-              required
             />
+          </Form.Item>
 
-            <TextField
-              onChange={(e) => setLesson(e.target.files[0])}
-              fullWidth
-              type="file"
-              id="lesson"
-              label="lesson"
-              placeholder="lesson"
-              InputLabelProps={{ shrink: true }}
-              margin="normal"
-              required
-            />
+          <Form.Item
+            name="LessonName"
+            rules={[
+              {
+                required: true,
+                message: "Please input your file",
+              },
+            ]}
+          >
+            <Upload
+              name="logo"
+              method="GET"
+              action=""
+              maxCount={1}
+              onChange={(e) => setLesson(e.fileList[0])}
+            >
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
+            </Upload>
+          </Form.Item>
 
-            <LinearProgress variant="determinate" value={uploadProgress} />
-
-            <Typography align="center" my={2}>
-              <Button variant="contained" type="submit">
-                add lesson
-              </Button>
-            </Typography>
-          </form>
-        </Box>
-      </Card>
-    </Container>
+          <TextField
+            onChange={(e) => setLesson(e.target.files[0])}
+            // onChange={(e) => console.log(e.target.files[0])}
+            fullWidth
+            type="file"
+            id="lesson"
+            label="lesson"
+            placeholder="lesson"
+            InputLabelProps={{ shrink: true }}
+            margin="normal"
+            required
+          />
+          <Progress percent={uploadProgress} />
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Add
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </>
   );
 };

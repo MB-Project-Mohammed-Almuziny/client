@@ -1,20 +1,27 @@
 import React from "react";
 import { Comment, List } from "antd";
-// import moment from 'moment';
 
-export const Replys = ({ replys }) => {
+import { BlockReplySpan } from "./BlockReplySpan";
+
+export const Replys = ({ replys, getCourseInfo }) => {
   return (
     <List
       className="comment-list"
       header={`${replys.length} reply`}
       itemLayout="horizontal"
       dataSource={replys}
-      renderItem={(comment) => (
+      renderItem={(reply) => (
         <li>
           <Comment
-            author={comment.creator.name}
-            avatar={comment.creator.avatar}
-            content={comment.description}
+            actions={[
+              <BlockReplySpan
+                replyId={reply._id}
+                getCourseInfo={getCourseInfo}
+              />,
+            ]}
+            author={reply.creator.name}
+            avatar={reply.creator.avatar}
+            content={reply.description}
           />
         </li>
       )}

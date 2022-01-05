@@ -2,14 +2,9 @@ import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  Container,
-  Box,
-  Card,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { TextField } from "@mui/material";
+import { Form, Upload, Button, Avatar } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 import { storage } from "./../utils/firebaseConfig";
 import { login } from "./../reducers/account";
@@ -24,8 +19,6 @@ export const UserSettingAvatar = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
     if (newAvatar.type.split("/")[0] === "image") {
       const uploadImg = storage.ref(`images/${newAvatar.name}`).put(newAvatar);
       uploadImg.on(
@@ -46,7 +39,7 @@ export const UserSettingAvatar = () => {
             .getDownloadURL()
             .then((url) => {
               setNewAvatarUrl(url);
-              e.target.newAvatar.value = "";
+
               dispatch(login({ user, avatar: url, userId, role, token }));
             });
         }
@@ -94,37 +87,62 @@ export const UserSettingAvatar = () => {
     // eslint-disable-next-line
   }, [newAvatarUrl]);
 
+  useEffect(() => {
+    console.log(newAvatar);
+    // eslint-disable-next-line
+  }, [newAvatar]);
+
   return (
-    <Container>
-      <Typography variant="h3" align="center" mb={2}>
-        your avatar
-      </Typography>
+    <>
+      <h1 className="title">your avatar</h1>
 
+      <div className="box">
+        <Avatar className="avatarImg" src={avatar} size={100} />
 
-      <Card>
-        <Box p={2}>
-          <img alt={user} src={avatar} />
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <TextField
-              onChange={(e) => setNewAvatar(e.target.files[0])}
-              fullWidth
-              type="file"
-              id="newAvatar"
-              label="newAvatar"
-              placeholder="newAvatar"
-              InputLabelProps={{ shrink: true }}
-              margin="normal"
-              required
-            />
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+          <Form.Item
+            name="LessonName"
+            rules={[
+              {
+                required: true,
+                message: "Please input your file",
+              },
+            ]}
+          >
+            <Upload
+              name="logo"
+              method="GET"
+              action=""
+              listType="picture"
+              maxCount={1}
+              onChange={(e) => setNewAvatar(e.fileList[0])}
+            >
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
+            </Upload>
+          </Form.Item>
 
-            <Typography align="center" my={2}>
-              <Button variant="contained" type="submit">
-                save change
-              </Button>
-            </Typography>
-          </form>
-        </Box>
-      </Card>
-    </Container>
+          <TextField
+            onChange={(e) => setNewAvatar(e.target.files[0])}
+            fullWidth
+            type="file"
+            id="newAvatar"
+            label="newAvatar"
+            placeholder="newAvatar"
+            InputLabelProps={{ shrink: true }}
+            margin="normal"
+          />
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Add
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </>
   );
 };

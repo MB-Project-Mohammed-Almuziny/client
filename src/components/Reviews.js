@@ -1,6 +1,5 @@
 import { React } from "react";
 import { Comment, List, Rate } from "antd";
-// import moment from 'moment';
 
 export const Reviews = ({ reviews }) => {
   return reviews ? (

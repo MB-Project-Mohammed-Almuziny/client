@@ -2,15 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  Container,
-  Box,
-  Card,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Form, Input, Button } from "antd";
 
 export const UserSettingInfo = () => {
   const [userInfo, setUserInfo] = useState("");
@@ -39,8 +31,6 @@ export const UserSettingInfo = () => {
 
   const handleSubmit = (e) => {
     try {
-      e.preventDefault();
-
       axios
         .put(
           `${process.env.REACT_APP_BASE_URL}/user/` + userId,
@@ -58,11 +48,6 @@ export const UserSettingInfo = () => {
             timer: 1500,
           });
 
-          e.target.name.value =
-            e.target.headline.value =
-            e.target.about.value =
-              "";
-
           getUserInfo();
         })
         .catch((err) => {
@@ -79,54 +64,43 @@ export const UserSettingInfo = () => {
   }, []);
 
   return (
-    <Container>
-      <Typography variant="h3" align="center" mb={2}>
-        your information
-      </Typography>
+    <>
+      <h1 className="title">your information</h1>
 
-      <Card>
-        <Box p={2}>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <FormGroup>
-              <TextField
-                onChange={(e) => setName(e.target.value)}
-                fullWidth
-                id="name"
-                label="name"
-                placeholder={userInfo.name}
-                InputLabelProps={{ shrink: true }}
-                margin="normal"
-              />
+      <div className="box">
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+          <Form.Item name="name">
+            <Input
+              placeholder={userInfo.name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Item>
 
-              <TextField
-                onChange={(e) => setHeadline(e.target.value)}
-                fullWidth
-                id="headline"
-                label="headline"
-                placeholder={userInfo.headline}
-                InputLabelProps={{ shrink: true }}
-                margin="normal"
-              />
+          <Form.Item name="headline">
+            <Input
+              placeholder={userInfo.headline}
+              onChange={(e) => setHeadline(e.target.value)}
+            />
+          </Form.Item>
 
-              <TextField
-                onChange={(e) => setAbout(e.target.value)}
-                fullWidth
-                id="about"
-                label="about"
-                placeholder={userInfo.about}
-                InputLabelProps={{ shrink: true }}
-                margin="normal"
-              />
-            </FormGroup>
+          <Form.Item name="about">
+            <Input
+              placeholder={userInfo.about}
+              onChange={(e) => setAbout(e.target.value)}
+            />
+          </Form.Item>
 
-            <Typography align="center" my={2}>
-              <Button variant="contained" type="submit">
-                save change
-              </Button>
-            </Typography>
-          </form>
-        </Box>
-      </Card>
-    </Container>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Add
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </>
   );
 };

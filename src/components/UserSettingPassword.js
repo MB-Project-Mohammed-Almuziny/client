@@ -1,29 +1,22 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import axios from "axios";
-import {
-  Container,
-  Box,
-  Card,
-  FormGroup,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Form, Input, Button } from "antd";
 
 export const UserSettingPassword = () => {
+  const [newPassword, setNewPassword] = useState();
+  const [newPassword2, setNewPassword2] = useState();
+
   const { token } = useSelector((state) => state.account);
 
   const handleSubmit = async (e) => {
     try {
-      e.preventDefault();
-
-      if (e.target.newPasword.value === e.target.checkNewPasword.value) {
+      if (newPassword === newPassword2) {
         await axios
           .put(
             `${process.env.REACT_APP_BASE_URL}/user/changePassword`,
-            { newPassword: e.target.newPasword.value },
+            { newPassword },
             {
               headers: { Authorization: "Bearer " + token },
             }
@@ -47,44 +40,52 @@ export const UserSettingPassword = () => {
   };
 
   return (
-    <Container>
-      <Typography variant="h3" align="center" mb={2}>
-        change your password
-      </Typography>
+    <>
+      <h1 className="title">change your password</h1>
 
-      <Card>
-        <Box p={2}>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <FormGroup>
-              <TextField
-                fullWidth
-                type="password"
-                id="newPasword"
-                label="newPasword"
-                placeholder="new pasword"
-                margin="normal"
-                required
-              />
+      <div className="box">
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+          <Form.Item
+            name="newPassword"
+            rules={[
+              {
+                required: true,
+                message: "Please input your new pasword",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="new password"
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </Form.Item>
 
-              <TextField
-                fullWidth
-                type="password"
-                id="checkNewPasword"
-                label="check new pasword"
-                placeholder="ckeck new pasword"
-                margin="normal"
-                required
-              />
-            </FormGroup>
+          <Form.Item
+            name="newPassword2"
+            rules={[
+              {
+                required: true,
+                message: "Please input your new pasword to check",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="new password check"
+              onChange={(e) => setNewPassword2(e.target.value)}
+            />
+          </Form.Item>
 
-            <Typography align="center" my={2}>
-              <Button variant="contained" type="submit">
-                save change
-              </Button>
-            </Typography>
-          </form>
-        </Box>
-      </Card>
-    </Container>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              change
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </>
   );
 };

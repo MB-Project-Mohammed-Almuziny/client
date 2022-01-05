@@ -35,6 +35,7 @@ export const CreateCourse = () => {
     uploadImg.on(
       "state_changed",
       (snapshot) => {
+        // eslint-disable-next-line
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
@@ -85,6 +86,7 @@ export const CreateCourse = () => {
 
   useEffect(() => {
     submitInfo();
+    // eslint-disable-next-line
   }, [thumbnailUrl]);
 
   return (
