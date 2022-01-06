@@ -6,12 +6,7 @@ import { RightSide } from "./RightSide";
 
 export const HeaderComponent = () => {
   return (
-    <Layout.Header
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-      }}
-    >
+    <Layout.Header className="header">
       <LeftSide />
 
       <RightSide />

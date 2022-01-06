@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import "antd/dist/antd.css";
-@import "react-chat-elements/dist/main.css";
 
 * {
   font-family: "Open Sans", sans-serif;
@@ -9,6 +8,12 @@
 body {
   background-color: #c0b6b6;
   margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
 }
 
 .pointer {
@@ -74,4 +79,14 @@ body {
 .courseInfoHeader button {
   display: block;
   width: 10rem;
+}
+
+@media (max-width: 768px) {
+  .textRight {
+    font-size: 0.7rem;
+  }
+
+  .header {
+    padding: 0 10px;
+  }
 }
