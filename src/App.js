@@ -16,8 +16,6 @@ import { Login } from "./pages/Login";
 import { ResetPassword } from "./pages/ResetPassword";
 import { Page404 } from "./pages/Page404";
 
-import { theme } from "./styles/muiThemes";
-
 function App() {
   return (
     <>
