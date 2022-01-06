@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
-import { Layout, Menu, Avatar, Form, Input, Button, Row, Col } from "antd";
+import { Layout, Menu, Avatar, Form, Input, Button } from "antd";
 import "./index.css";
 
 const { Sider, Content } = Layout;
@@ -126,12 +126,12 @@ export const Chats = () => {
           ))}
         </Menu>
       </Sider>
-      <Content className="content">
+      <Content className="content_chat">
         {chats[chatIndex] ? (
-          <>
+          <div className="chatBorder">
             <div className="contentHeader">
               <Avatar
-                size={50}
+                className="avatar"
                 src={
                   chats[chatIndex].user1._id === userId
                     ? chats[chatIndex].user2.avatar
@@ -146,7 +146,7 @@ export const Chats = () => {
             </div>
             <div className="roomContainer">
               {messages.map((message) => (
-                <div>
+                <div key={message._id}>
                   <div
                     className={
                       message.sender === userId
@@ -154,6 +154,17 @@ export const Chats = () => {
                         : "messageBoxLeft"
                     }
                   >
+                    {message.sender !== userId && (
+                      <Avatar
+                        className="avatar"
+                        src={
+                          chats[chatIndex].user1._id === userId
+                            ? chats[chatIndex].user2.avatar
+                            : chats[chatIndex].user1.avatar
+                        }
+                      />
+                    )}
+
                     <p
                       className={
                         message.sender === userId ? "textRight" : "textLeft"
@@ -172,28 +183,23 @@ export const Chats = () => {
                 className="form"
                 onFinish={(e) => sendMessage(e, chats[chatIndex]._id)}
               >
-                <Row>
-                  <Col span={23}>
-                    <Form.Item
-                      name="message"
-                      noStyle
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input a message",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col span={1}>
-                    <Button>send</Button>
-                  </Col>
-                </Row>
+                <Form.Item
+                  name="message"
+                  noStyle
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input a message",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+
+                <Button>send</Button>
               </Form>
             </div>
-          </>
+          </div>
         ) : (
           <> </>
         )}

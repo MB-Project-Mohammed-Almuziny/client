@@ -23,16 +23,16 @@ export const EnroleOrLearnBtn = () => {
           userId,
           courseId,
         })
-        .then((result) => {
+        .then(() => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your login successfully",
+            title: "You enrole successfully",
             showConfirmButton: false,
             timer: 1000,
           });
 
-          navigate("/");
+          navigate("/course/learn/" + courseId);
         })
         .catch((err) => {
           console.error(err + "");

@@ -1,18 +1,20 @@
 @import "react-chat-elements/dist/main.css";
 
-.content {
-  margin: 0;
-  max-height: "100%";
-  /* display: flex;
-  flex-direction: column ;
-  justify-content: flex-end; */
+.content_chat {
+  background-color: #c0b6b6;
+  padding: 0 1%;
+}
+
+.chatBorder {
+  border: 1px solid black;
 }
 
 .contentHeader {
   display: flex;
   align-items: center;
+  background-color: white;
   height: 5rem;
-  padding: 0.5rem;
+  padding-left: 1rem;
   border-bottom: 0.2rem solid black;
 }
 
@@ -21,11 +23,13 @@
 }
 
 .avatar {
-  font-size: 1.5em;
+  width: 3rem;
+  height: 3rem;
 }
 
 .roomContainer {
-  margin: 4%;
+  background-color: white;
+  padding: 4%;
   overflow-y: scroll;
   height: 70vh;
   /* overflow:hidden; */
@@ -36,6 +40,9 @@
   align-self: left;
   text-align: left;
   margin-right: 3rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
 }
 
 .messageBoxRight {
@@ -57,6 +64,7 @@
 .textLeft {
   color: white;
   font-size: 2rem;
+  /* margin-left: 1rem; */
   padding: 0.2rem 0.5rem;
   display: inline-block;
   background: #94c2ed;
@@ -65,10 +73,27 @@
 }
 
 .formContainer {
+  background-color: white;
   border-top: 0.2rem solid black;
   height: 10vh;
 }
 
 .form {
-  margin: 1% 2% 0;
+  display: flex;
+  padding: 1% 2%;
+}
+
+@media (max-width: 768px) {
+  .textRight {
+    font-size: 0.7rem;
+  }
+
+  .textLeft {
+    font-size: 0.7rem;
+  }
+
+  .avatar {
+    width: 2rem;
+    height: 2rem;
+  }
 }

@@ -8,10 +8,21 @@ export const CourseCard = ({ course }) => {
   const navigate = useNavigate();
 
   return (
-    <Col span={6}>
+    <Col
+      xs={{ span: 24, offset: 0 }}
+      md={{ span: 8, offset: 0 }}
+      lg={{ span: 6, offset: 0 }}
+      xl={{ span: 6, offset: 0 }}
+    >
       <Card
         hoverable
-        cover={<img alt="example" src={course.thumbnail} />}
+        cover={
+          <img
+            className="courseCardImg"
+            alt={course.title}
+            src={course.thumbnail}
+          />
+        }
         onClick={() => navigate("/course/" + course._id)}
       >
         <Card.Meta

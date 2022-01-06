@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { TextField } from "@mui/material";
+
 import { Select, Form, Input, Upload, Button, Progress } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
@@ -21,7 +21,9 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
     // e.preventDefault();
 
     if (lesson.type.split("/")[0] === "video") {
-      const uploadImg = storage.ref(`videos/${lesson.name}`).put(lesson);
+      const uploadImg = storage
+        .ref(`videos/${course._id}_${sectionIndex}_${lesson.name}`)
+        .put(lesson);
       uploadImg.on(
         "state_changed",
         (snapshot) => {
@@ -37,7 +39,7 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
         () => {
           storage
             .ref("videos")
-            .child(lesson.name)
+            .child(`${course._id}_${sectionIndex}_${lesson.name}`)
             .getDownloadURL()
             .then((url) => {
               setLessonUrl(url);
@@ -99,6 +101,11 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
     // eslint-disable-next-line
   }, [lesson]);
 
+  useEffect(() => {
+    console.log("lessonName :", lessonName);
+    // eslint-disable-next-line
+  }, [lessonName]);
+
   return (
     <>
       <h1 className="title">Log In</h1>
@@ -124,7 +131,6 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
             </p>
           )
         )}
-
         <br />
 
         <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
@@ -133,7 +139,7 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
             rules={[
               {
                 required: true,
-                message: "Please input your Username or Email!",
+                message: "Please input your lesson name",
               },
             ]}
           >
@@ -153,29 +159,21 @@ export const CourseAddLesson = ({ course, getCourseInfo }) => {
             ]}
           >
             <Upload
-              name="logo"
+              name="video"
               method="GET"
               action=""
               maxCount={1}
-              onChange={(e) => setLesson(e.fileList[0])}
+              onChange={(e) =>
+                e.file.status === "done" && setLesson(e.file.originFileObj)
+              }
             >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>
 
-          <TextField
-            onChange={(e) => setLesson(e.target.files[0])}
-            // onChange={(e) => console.log(e.target.files[0])}
-            fullWidth
-            type="file"
-            id="lesson"
-            label="lesson"
-            placeholder="lesson"
-            InputLabelProps={{ shrink: true }}
-            margin="normal"
-            required
-          />
           <Progress percent={uploadProgress} />
+          <br />
+
           <Form.Item>
             <Button
               type="primary"

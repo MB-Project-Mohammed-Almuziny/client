@@ -54,51 +54,6 @@ export const Register = () => {
   };
 
   return (
-    // <Container maxWidth="md">
-    //   <Typography variant="h3" align="center" mb={2}>
-    //     register
-    //   </Typography>
-    //   <Box sx={{ bgcolor: "background.paper", p: 2 }}>
-    //     <form onSubmit={handleSubmit}>
-    //       <FormGroup>
-    //         <TextField
-    //           onChange={(e) => setName(e.target.value)}
-    //           fullWidth
-    //           id="userName"
-    //           label="User Name"
-    //           placeholder="User Name"
-    //           margin="normal"
-    //           required
-    //         />
-    //         <TextField
-    //           onChange={(e) => setEmail(e.target.value)}
-    //           fullWidth
-    //           type="email"
-    //           id="email"
-    //           label="email"
-    //           placeholder="Email"
-    //           margin="normal"
-    //           required
-    //         />
-    //         <TextField
-    //           onChange={(e) => setPassword(e.target.value)}
-    //           fullWidth
-    //           type="password"
-    //           id="password"
-    //           label="password"
-    //           placeholder="password"
-    //           margin="normal"
-    //           required
-    //         />
-    //       </FormGroup>
-    //       <Typography align="center" my={2}>
-    //         <Button variant="contained" type="submit">
-    //           register
-    //         </Button>
-    //       </Typography>
-    //     </form>
-    //   </Box>
-    // </Container>
     <Layout.Content className="content" style={{ minHeight: "100vh" }}>
       <h1 className="title">register</h1>
 

@@ -1,6 +1,4 @@
 import { Routes, Route } from "react-router";
-import { Box } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
 
 import { HeaderComponent } from "./components/HeaderComponent";
 import { Home } from "./pages/Home";
@@ -16,32 +14,30 @@ import { Chats } from "./pages/Chats";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { ResetPassword } from "./pages/ResetPassword";
-
-import { theme } from "./styles/muiThemes";
+import { Page404 } from "./pages/Page404";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Box>
-        <HeaderComponent />
+    <>
+      <HeaderComponent />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/category/:category" element={<CoursesByCategory />} />
-          <Route path="/search/:term" element={<CoursesByTerm />} />
-          <Route path="/createCourse" element={<CreateCourse />} />
-          <Route path="/course/learn/:courseId" element={<CourseLearn />} />
-          <Route path="/course/setting/:courseId" element={<CourseSetting />} />
-          <Route path="/course/:courseId" element={<CourseInfo />} />
-          <Route path="/user/setting" element={<UserSetting />} />
-          <Route path="/user/:user_id" element={<UserInfo />} />
-          <Route path="/chats" element={<Chats />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/LogIn" element={<Login />} />
-          <Route path="/Resetpass/:token" element={<ResetPassword />} />
-        </Routes>
-      </Box>
-    </ThemeProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/category/:category" element={<CoursesByCategory />} />
+        <Route path="/search/:term" element={<CoursesByTerm />} />
+        <Route path="/createCourse" element={<CreateCourse />} />
+        <Route path="/course/learn/:courseId" element={<CourseLearn />} />
+        <Route path="/course/setting/:courseId" element={<CourseSetting />} />
+        <Route path="/course/:courseId" element={<CourseInfo />} />
+        <Route path="/user/setting" element={<UserSetting />} />
+        <Route path="/user/:user_id" element={<UserInfo />} />
+        <Route path="/chats" element={<Chats />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/LogIn" element={<Login />} />
+        <Route path="/Resetpass/:token" element={<ResetPassword />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </>
   );
 }
 

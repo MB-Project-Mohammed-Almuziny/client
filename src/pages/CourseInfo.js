@@ -58,28 +58,42 @@ export const CourseInfo = () => {
 
   return course ? (
     <Layout.Content className="content" style={{ minHeight: "100vh" }}>
-      <EnroleOrLearnBtn />
-      <CourseSettingBtn courseId={course._id} creator={course.creator} />
-      <BlockCourseBtn courseId={course._id} />
+      <img
+        className="thumbnail"
+        src={course.thumbnail}
+        alt={course.title + " thumbnail"}
+      />
 
-      <p>{course.title}</p>
+      <div className="courseInfoHeader">
+        <div>
+          <h1>{course.title}</h1>
 
-      <p>
-        created by:
-        <Link to={`/user/${course.creator._id}`}>{course.creator.name}</Link>
-      </p>
+          <h2>
+            created by :{" "}
+            <Link to={`/user/${course.creator._id}`}>
+              {course.creator.name}
+            </Link>
+          </h2>
+        </div>
+
+        <div>
+          <EnroleOrLearnBtn />
+          <CourseSettingBtn courseId={course._id} creator={course.creator} />
+          <BlockCourseBtn courseId={course._id} />
+        </div>
+      </div>
       <hr />
 
-      <h1>Description</h1>
+      <h2>Description</h2>
       <p>{course.description}</p>
 
-      <h1>About</h1>
+      <h2>About</h2>
       <p>{course.about}</p>
 
-      <h1>rating status</h1>
+      <h2>rating status</h2>
       {reviews && reviews.result[0] && <RatingStatus reviews={reviews} />}
 
-      <h1>Reviews</h1>
+      <h2>Reviews</h2>
       {userId && (
         <UserReview
           creator={userId}

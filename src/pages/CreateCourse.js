@@ -2,17 +2,8 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import {
-  Container,
-  Box,
-  Card,
-  FormGroup,
-  TextField,
-  Select,
-  MenuItem,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Layout, Form, Upload, Input, Select, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 import { storage } from "./../utils/firebaseConfig";
 
@@ -29,8 +20,6 @@ export const CreateCourse = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
     const uploadImg = storage.ref(`images/${thumbnail.name}`).put(thumbnail);
     uploadImg.on(
       "state_changed",
@@ -90,80 +79,107 @@ export const CreateCourse = () => {
   }, [thumbnailUrl]);
 
   return (
-    <Container>
-      <Typography variant="h3" align="center" mb={2}>
-        create new course
-      </Typography>
+    <Layout.Content className="content">
+      <h1 className="title">create new course</h1>
 
-      <Card>
-        <Box p={2}>
-          <form onSubmit={handleSubmit}>
-            <FormGroup>
-              <TextField
-                onChange={(e) => setThumbnail(e.target.files[0])}
-                fullWidth
-                type="file"
-                id="thumbnail"
-                label="thumbnail"
-                placeholder="thumbnail"
-                margin="normal"
-                required
-              />
-
-              <TextField
-                onChange={(e) => setTitle(e.target.value)}
-                fullWidth
-                id="title"
-                label="title"
-                placeholder="title"
-                margin="normal"
-                required
-              />
-
-              <TextField
-                onChange={(e) => setAbout(e.target.value)}
-                fullWidth
-                id="about"
-                label="about"
-                placeholder="about"
-                margin="normal"
-                required
-              />
-
-              <TextField
-                onChange={(e) => setDescription(e.target.value)}
-                fullWidth
-                id="description"
-                label="description"
-                placeholder="description"
-                margin="normal"
-                required
-              />
-
-              <Select
-                id="category"
-                label="category"
-                placeholder="category"
-                value={category}
-                autoWidth={false}
-                required
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <MenuItem value={"General"}>General</MenuItem>
-                <MenuItem value={"Software"}>Software</MenuItem>
-                <MenuItem value={"Business"}>Business</MenuItem>
-                <MenuItem value={"Lifestyle"}>Lifestyle</MenuItem>
-              </Select>
-            </FormGroup>
-
-            <Typography align="center" my={2}>
-              <Button variant="contained" type="submit">
-                create
+      <div className="box">
+        <Form onFinish={handleSubmit}>
+          <Form.Item
+            name="user avatar"
+            rules={[
+              {
+                required: true,
+                message: "Please input your course thumbnail ",
+              },
+            ]}
+          >
+            <Upload
+              name="logo"
+              method="GET"
+              action=""
+              listType="picture"
+              maxCount={1}
+              onChange={(e) =>
+                e.file.status === "done" && setThumbnail(e.file.originFileObj)
+              }
+            >
+              <Button icon={<UploadOutlined />}>
+                Click to upload thumbnail
               </Button>
-            </Typography>
-          </form>
-        </Box>
-      </Card>
-    </Container>
+            </Upload>
+          </Form.Item>
+
+          <Form.Item
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: "Please input your course title",
+              },
+            ]}
+          >
+            <Input
+              placeholder="title"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="about"
+            rules={[
+              {
+                required: true,
+                message: "Please input about your course",
+              },
+            ]}
+          >
+            <Input
+              placeholder="about"
+              onChange={(e) => setAbout(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Please input your course description",
+              },
+            ]}
+          >
+            <Input
+              placeholder="description"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Item>
+
+          <Select
+            showSearch
+            placeholder="Select a person"
+            optionFilterProp="children"
+            onChange={(val) => setCategory(val)}
+          >
+            {["General", "Software", "Business", "Lifestyle"].map(
+              (section, i) => (
+                <Select.Option value={section} key={i + "_section"}>
+                  {section}
+                </Select.Option>
+              )
+            )}
+          </Select>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              create
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </Layout.Content>
   );
 };

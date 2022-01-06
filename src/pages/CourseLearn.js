@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import axios from "axios";
 import { Layout, Menu, Empty } from "antd";
@@ -18,8 +18,6 @@ export const CourseLearn = () => {
 
   const { courseId } = useParams();
 
-  const navigate = useNavigate();
-
   const getCourseInfo = () => {
     try {
       axios
@@ -33,12 +31,6 @@ export const CourseLearn = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleUserInfo = (e) => {
-    e.preventDefault();
-
-    navigate("/user/" + course.creator._id);
   };
 
   useEffect(() => {
@@ -65,6 +57,7 @@ export const CourseLearn = () => {
           <Menu
             defaultSelectedKeys={[course.lessonSections[0].lessons[0]._id]}
             defaultOpenKeys={[course.lessonSections[0]._id]}
+            theme="dark"
             mode="inline"
           >
             {course.lessonSections.map((section) => (
@@ -89,19 +82,13 @@ export const CourseLearn = () => {
       </Sider>
 
       <Content className="content_courseLearn">
-        <p>{course.title}</p>
+        <h1>{course.title}</h1>
 
-        <p>
-          created by:
-          <p
-            onClick={handleUserInfo}
-            className="pointer"
-            variant="button"
-            sx={{ textDecoration: "underline", color: "blue" }}
-          >
-            {course.creator.name}
-          </p>
-        </p>
+        <h2>
+          created by :{" "}
+          <Link to={`/user/${course.creator._id}`}>{course.creator.name}</Link>
+        </h2>
+
         <hr />
 
         <ReactPlayer url={lessonContent} controls={true} width="100%" />
