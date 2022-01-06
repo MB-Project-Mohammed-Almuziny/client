@@ -11,6 +11,12 @@ body {
   margin: 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -74,4 +80,14 @@ body {
 .courseInfoHeader button {
   display: block;
   width: 10rem;
+}
+
+@media (max-width: 768px) {
+  .textRight {
+    font-size: 0.7rem;
+  }
+
+  .header {
+    padding: 0 10px;
+  }
 }
