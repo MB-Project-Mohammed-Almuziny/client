@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import "antd/dist/antd.css";
-@import "react-chat-elements/dist/main.css";
 
 * {
   font-family: "Open Sans", sans-serif;
