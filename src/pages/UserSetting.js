@@ -25,7 +25,7 @@ const GetPanel = ({ panel }) => {
 };
 
 export const UserSetting = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [panel, setPanel] = useState("Info");
 
   const menuItems = [

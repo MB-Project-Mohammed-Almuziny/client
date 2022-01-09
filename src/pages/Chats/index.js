@@ -15,7 +15,7 @@ export const Chats = () => {
   const [chats, setChats] = useState([]);
   const [roomMessages, setRoomMessages] = useState({});
   const [messages, setMessages] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [chatIndex, setChatIndex] = useState(-1);
 
   const { user, userId, token } = useSelector((state) => state.account);

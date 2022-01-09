@@ -30,7 +30,7 @@ const GetPanel = ({ panel, course, getCourseInfo }) => {
 };
 
 export const CourseSetting = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [panel, setPanel] = useState("Info");
   const [isCreator, setIsCreator] = useState(false);
   const [course, setCourse] = useState();
