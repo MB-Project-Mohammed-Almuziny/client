@@ -45,7 +45,7 @@ body {
   margin: 2rem 0;
 }
 
-.centering {
+.center {
   display: flex;
   justify-content: center;
 }
@@ -81,12 +81,22 @@ body {
   width: 10rem;
 }
 
-@media (max-width: 768px) {
-  .textRight {
-    font-size: 0.7rem;
-  }
+.noContentText {
+  color: white;
+  width: 0 auto;
+  padding-top: 1rem;
+}
 
+.emptyText {
+  color: black;
+}
+
+@media (max-width: 768px) {
   .header {
     padding: 0 10px;
+  }
+
+  .stars {
+    font-size: 9px;
   }
 }

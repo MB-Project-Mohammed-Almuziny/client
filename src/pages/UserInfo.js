@@ -102,7 +102,7 @@ export const UserInfo = () => {
       </div>
     </Layout.Content>
   ) : (
-    <Layout.Content className="centering">
+    <Layout.Content className="center">
       <LoadingOutlined className="loadingIcon" />
     </Layout.Content>
   );

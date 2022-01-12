@@ -108,12 +108,6 @@ export const Register = () => {
             </Button>
             Or <Link to="/register">register now! </Link>
           </Form.Item>
-
-          {/* <Form.Item>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </Form.Item> */}
         </Form>
       </div>
     </Layout.Content>
