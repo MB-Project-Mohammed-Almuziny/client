@@ -35,10 +35,6 @@ body {
   padding: 0 2%;
 }
 
-.box {
-  background-color: white;
-  padding: 2rem;
-}
 
 .title {
   text-align: center;
@@ -48,6 +44,16 @@ body {
 .center {
   display: flex;
   justify-content: center;
+}
+
+.box {
+  background-color: white;
+  padding: 2rem;
+}
+
+.logIn {
+  width: 50%;
+  margin: 0 auto;
 }
 
 .loadingIcon {
@@ -76,6 +82,19 @@ body {
   margin-top: 2rem;
 }
 
+.userInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.userInfoHeader div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .courseInfoHeader button {
   display: block;
   width: 10rem;
@@ -96,7 +115,20 @@ body {
     padding: 0 10px;
   }
 
+  .logIn {
+    width: 100%;
+    margin: 0 auto;
+  }
+
   .stars {
     font-size: 9px;
+  }
+
+  .userInfoHeader {
+    flex-direction: column;
+  }
+
+  .userInfoHeader div {
+    margin-bottom: 1rem;
   }
 }

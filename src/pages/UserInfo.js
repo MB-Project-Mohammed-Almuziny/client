@@ -61,14 +61,15 @@ export const UserInfo = () => {
 
   return userInfo ? (
     <Layout.Content className="content" style={{ minHeight: "100vh" }}>
-      <div className="box">
-        <Row>
-          <Avatar src={userInfo.avatar} size={60} />
-          <h1>{userInfo.name}</h1>
+      <div className="box logIn">
+        <div className="userInfoHeader">
+          <div>
+            <Avatar src={userInfo.avatar} size={60} />
+            <h1>{userInfo.name}</h1>
+          </div>
+
           <Button onClick={handleDirectMessage}> send direct message</Button>
-        </Row>
-        <br />
-        <br />
+        </div>
 
         <h1>Headline</h1>
         <p>{userInfo.headline}</p>

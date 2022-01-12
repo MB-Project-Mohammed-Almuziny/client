@@ -104,9 +104,9 @@ export const Register = () => {
               htmlType="submit"
               className="login-form-button"
             >
-              Log in
+              register
             </Button>
-            Or <Link to="/register">register now! </Link>
+            Or <Link to="/logIn">log in now! </Link>
           </Form.Item>
         </Form>
       </div>
