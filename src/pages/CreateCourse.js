@@ -95,10 +95,9 @@ export const CreateCourse = () => {
           >
             <Upload
               name="logo"
-              method="GET"
-              action=""
               listType="picture"
               maxCount={1}
+              beforeUpload={() => false}
               onChange={(e) =>
                 e.file.status === "done" && setThumbnail(e.file.originFileObj)
               }
