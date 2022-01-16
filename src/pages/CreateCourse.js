@@ -107,8 +107,7 @@ export const CreateCourse = () => {
           >
             <Upload
               name="logo"
-              method="GET"
-              action=""
+              beforeUpload="false"
               listType="picture"
               maxCount={1}
               onChange={(e) =>
